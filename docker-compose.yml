@@ -1,0 +1,7 @@
+services:
+  diagai-landing:
+    build: .
+    container_name: diagai-landing
+    ports:
+      - "7878:80"
+    restart: unless-stopped

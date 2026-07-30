@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diag AI — Đang chuyển hướng tải app...</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #F1F5F9;
+      color: #0F172A;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .card {
+      background: #FFFFFF;
+      padding: 32px 24px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 420px;
+      width: 100%;
+    }
+    h2 {
+      color: #0B5C34;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    p {
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(11, 92, 52, 0.15);
+      border-top: 4px solid #0B5C34;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .btn {
+      display: block;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 12px;
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+    .btn-ios {
+      background: #0284C7;
+      color: #FFF;
+    }
+    .btn-android {
+      background: #0B5C34;
+      color: #FFF;
+    }
+  </style>
+  <script>
+    (function () {
+      var ua = navigator.userAgent || '';
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid = /Android/i.test(ua);
+
+      var ANDROID_APK_URL = 'https://diagai.ddns.net/download/diag-ai-release.apk';
+      var IOS_TESTFLIGHT_URL = 'https://testflight.apple.com/join/D4fC5G5z';
+
+      if (isIOS) {
+        window.location.replace(IOS_TESTFLIGHT_URL);
+      } else if (isAndroid) {
+        window.location.replace(ANDROID_APK_URL);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="spinner"></div>
+    <h2>Đang tự động chuyển hướng...</h2>
+    <p>Hệ thống đang tự động chuyển bạn đến trang tải app phù hợp với điện thoại của bạn.</p>
+    <div style="margin-top: 24px;">
+      <a href="https://testflight.apple.com/join/D4fC5G5z" class="btn btn-ios">Tải cho iPhone (TestFlight iOS)</a>
+      <a href="https://diagai.ddns.net/download/diag-ai-release.apk" class="btn btn-android">Tải cho Android (File APK)</a>
+    </div>
+  </div>
+</body>
+</html>
