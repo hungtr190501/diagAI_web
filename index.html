@@ -1475,6 +1475,15 @@
         <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=https://diagai.vn/download.html" alt="Mã QR Tải App Diag AI" />
         <div class="qr-scan-text">Hỗ trợ điện thoại Android & iPhone</div>
       </div>
+
+      <div class="qr-download-actions" style="margin-top: 16px;">
+        <a href="download.html" class="btn btn-primary" style="width: 100%;">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+          </svg>
+          Tải App Miễn Phí
+        </a>
+      </div>
   </div>
 
   <!-- Lightbox Modal -->
@@ -1544,10 +1553,9 @@
         qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=${encodeURIComponent(downloadUrl)}`;
       }
 
-      // Gán sự kiện click thông minh cho tất cả nút tải app
-      const downloadBtn = document.getElementById('btn-main-download');
-      if (downloadBtn) {
-        downloadBtn.addEventListener('click', function (e) {
+      // Gán sự kiện click thông minh cho tất cả các nút Tải App trên trang
+      document.querySelectorAll('a[href="download.html"]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
           if (isIOS) {
             e.preventDefault();
             window.location.href = IOS_TESTFLIGHT_URL;
@@ -1556,7 +1564,7 @@
             window.location.href = ANDROID_APK_URL;
           }
         });
-      }
+      });
     })();
 
     // Medical Background Canvas Animation (Crosses, Hearts, ECG Pulse Lines & Medical Nodes)
