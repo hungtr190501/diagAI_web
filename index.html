@@ -937,15 +937,19 @@
     }
 
     /* Responsive adjustments */
+    /* Mobile Responsive Optimizations */
     @media (max-width: 1080px) {
       .split-container {
         grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 20px;
+        padding-bottom: 40px;
       }
 
       .sticky-sidebar {
         position: relative;
         top: 0;
-        max-width: 440px;
+        max-width: 100%;
         margin: 0 auto;
       }
 
@@ -967,51 +971,135 @@
     }
 
     @media (max-width: 768px) {
+      html, body {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden !important;
+      }
+
       .site-wrapper {
         padding: 0 16px;
       }
 
       header {
-        padding: 12px 0;
+        padding: 10px 0;
+      }
+
+      .brand {
+        gap: 8px;
       }
 
       .brand img {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
       }
 
       .brand-info h1 {
-        font-size: 17px;
+        font-size: 16px;
       }
 
       .brand-info p {
-        font-size: 9.5px;
+        display: none; /* Hide subtitle text on mobile header to save space */
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .nav-actions .btn-primary {
+        padding: 10px 14px;
+        font-size: 12.5px;
+        border-radius: 10px;
+      }
+
+      .theme-toggle {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+      }
+
+      .hero-tag {
+        font-size: 11.5px;
+        padding: 6px 14px;
+        margin-bottom: 14px;
       }
 
       .hero-title {
-        font-size: 25px !important;
+        font-size: 22px !important;
         line-height: 1.35 !important;
+        margin-bottom: 14px;
+      }
+
+      .hero-title br {
+        display: none;
       }
 
       .hero-desc {
-        font-size: 14px !important;
+        font-size: 13.5px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 20px;
+      }
+
+      .offline-highlight-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 14px 16px;
+        gap: 10px;
+        margin-bottom: 20px;
       }
 
       .hero-stats {
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
+        gap: 6px !important;
+        padding: 14px 10px !important;
       }
 
       .stat-item {
-        padding: 12px 8px !important;
+        padding: 6px 4px !important;
+        text-align: center;
       }
 
       .stat-item h3 {
         font-size: 13px !important;
+        margin-bottom: 2px;
       }
 
       .stat-item p {
-        font-size: 10.5px !important;
+        font-size: 10px !important;
+        line-height: 1.3;
+      }
+
+      .hero-gallery {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
+      .section-desc {
+        font-size: 13.5px;
+      }
+
+      .feature-card {
+        padding: 20px 16px;
+      }
+
+      .video-section {
+        padding: 18px 16px;
+        border-radius: 18px;
+      }
+
+      .disclaimer-box {
+        flex-direction: column;
+        padding: 16px;
+        gap: 12px;
       }
 
       .sticky-sidebar {
@@ -1023,34 +1111,38 @@
 
       .qr-box svg,
       .qr-box img {
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
       }
 
       .btn {
-        padding: 12px 18px;
-        font-size: 13.5px;
+        padding: 12px 16px;
+        font-size: 13px;
+        width: 100%;
       }
 
       footer {
         flex-direction: column;
         text-align: center;
         gap: 8px;
+        padding: 20px 0;
       }
     }
 
     @media (max-width: 480px) {
       .hero-title {
-        font-size: 21px !important;
+        font-size: 20px !important;
       }
 
       .hero-stats {
         grid-template-columns: 1fr !important;
+        gap: 10px !important;
       }
 
-      .hero-gallery {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
+      .stat-item {
+        padding: 10px !important;
+        background: rgba(11, 92, 52, 0.04);
+        border-radius: 10px;
       }
 
       .gallery-grid {
@@ -1380,7 +1472,7 @@
       </div>
 
       <div class="qr-box">
-        <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=https://diagai.ddns.net/download.html" alt="Mã QR Tải App Diag AI" />
+        <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=https://diagai.vn/download.html" alt="Mã QR Tải App Diag AI" />
         <div class="qr-scan-text">Hỗ trợ điện thoại Android & iPhone</div>
       </div>
   </div>
@@ -1448,7 +1540,7 @@
       // Tự động gán link mã QR trỏ thẳng tới trang download.html để chuyển hướng tức thì
       const qrImg = document.getElementById('qr-code-img');
       if (qrImg) {
-        const downloadUrl = window.location.origin + '/download.html';
+        const downloadUrl = (window.location.hostname === 'diagai.vn') ? 'https://diagai.vn/download.html' : window.location.origin + '/download.html';
         qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=${encodeURIComponent(downloadUrl)}`;
       }
 

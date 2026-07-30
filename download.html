@@ -75,7 +75,7 @@
       var isIOS = /iPhone|iPad|iPod/i.test(ua);
       var isAndroid = /Android/i.test(ua);
 
-      var ANDROID_APK_URL = 'https://diagai.ddns.net/download/diag-ai-release.apk';
+      var ANDROID_APK_URL = window.location.origin + '/download/diag-ai-release.apk';
       var IOS_TESTFLIGHT_URL = 'https://testflight.apple.com/join/D4fC5G5z';
 
       if (isIOS) {
@@ -93,7 +93,7 @@
     <p>Hệ thống đang tự động chuyển bạn đến trang tải app phù hợp với điện thoại của bạn.</p>
     <div style="margin-top: 24px;">
       <a href="https://testflight.apple.com/join/D4fC5G5z" class="btn btn-ios">Tải cho iPhone (TestFlight iOS)</a>
-      <a href="https://diagai.ddns.net/download/diag-ai-release.apk" class="btn btn-android">Tải cho Android (File APK)</a>
+      <a href="download/diag-ai-release.apk" class="btn btn-android">Tải cho Android (File APK)</a>
     </div>
   </div>
 </body>
