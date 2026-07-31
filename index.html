@@ -454,6 +454,92 @@
       margin-top: 10px;
     }
 
+    .qr-split-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .qr-box-android {
+      border: 2px dashed #10B981 !important;
+      background: rgba(16, 185, 129, 0.04);
+      margin-bottom: 0 !important;
+    }
+
+    .qr-box-ios {
+      border: 2px dashed #0284C7 !important;
+      background: rgba(2, 132, 199, 0.04);
+      margin-bottom: 0 !important;
+    }
+
+    .qr-os-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .qr-os-badge.os-android {
+      background: rgba(16, 185, 129, 0.15);
+      color: #0B5C34;
+    }
+
+    [data-theme="dark"] .qr-os-badge.os-android {
+      color: #34D399;
+      background: rgba(52, 211, 153, 0.2);
+    }
+
+    .qr-os-badge.os-ios {
+      background: rgba(2, 132, 199, 0.15);
+      color: #0284C7;
+    }
+
+    [data-theme="dark"] .qr-os-badge.os-ios {
+      color: #38BDF8;
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    .btn-android-sm {
+      background: linear-gradient(135deg, #0B5C34 0%, #10B981 100%);
+      color: #FFFFFF !important;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(11, 92, 52, 0.2);
+    }
+
+    .btn-ios-sm {
+      background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);
+      color: #FFFFFF !important;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+    }
+
     .offline-sidebar-pill {
       background: rgba(16, 185, 129, 0.12);
       border: 1px solid rgba(16, 185, 129, 0.3);
@@ -1466,23 +1552,41 @@
           <svg class="svg-icon" viewBox="0 0 24 24">
             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
           </svg>
-          MÃ QR TẢI APP
+          MÃ QR TẢI APP PHÙ HỢP
         </div>
-        <p style="font-size: 12.5px; color: var(--text-muted);">Mở camera điện thoại quét mã để tải app ngay</p>
+        <p style="font-size: 12.5px; color: var(--text-muted);">Quét mã QR tương ứng với hệ điều hành điện thoại của bạn</p>
       </div>
 
-      <div class="qr-box">
-        <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=https://diagai.vn/download.html" alt="Mã QR Tải App Diag AI" />
-        <div class="qr-scan-text">Hỗ trợ điện thoại Android & iPhone</div>
-      </div>
+      <div class="qr-split-container">
+        <!-- Android QR Box -->
+        <div class="qr-box qr-box-android">
+          <div class="qr-os-badge os-android">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.523 15.3414c-.5511 0-.998-.4468-.998-.9979 0-.5512.4469-.998.998-.998.5512 0 .998.4468.998.998 0 .5511-.4468.9979-.998.9979m-11.046 0c-.5512 0-.998-.4468-.998-.9979 0-.5512.4468-.998.998-.998.5511 0 .9979.4468.9979.998 0 .5511-.4468.9979-.9979.9979m11.4556-5.8368l1.792-3.1038c.1197-.2074.0486-.4727-.1588-.5925-.2074-.1197-.4728-.0486-.5926.1588l-1.8263 3.1633c-1.4646-.6692-3.1118-1.0506-4.869-1.0506-1.7573 0-3.4045.3814-4.869 1.0506l-1.8264-3.1633c-.1197-.2074-.3851-.2785-.5925-.1588-.2074.1198-.2785.3851-.1589.5925l1.7921 3.1038c-3.1362 1.7088-5.2678 4.8876-5.4674 8.647h23.2723c-.1996-3.7594-2.3312-6.9382-5.4674-8.647"/>
+            </svg>
+            TẢI CHO ANDROID
+          </div>
+          <img id="qr-code-android" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=https://diagai.vn/download/diag-ai-release.apk" alt="Mã QR Tải App Android" />
+          <div class="qr-scan-text">Quét mã để tải file APK Android</div>
+          <a href="download/diag-ai-release.apk" class="btn btn-android-sm">
+            Tải APK (~199MB)
+          </a>
+        </div>
 
-      <div class="qr-download-actions" style="margin-top: 16px;">
-        <a href="download.html" class="btn btn-primary" style="width: 100%;">
-          <svg class="svg-icon" viewBox="0 0 24 24">
-            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
-          </svg>
-          Tải App Miễn Phí
-        </a>
+        <!-- iOS TestFlight QR Box -->
+        <div class="qr-box qr-box-ios">
+          <div class="qr-os-badge os-ios">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.09c.68-.83 1.14-1.99.99-3.14-.98.04-2.17.65-2.87 1.47-.62.72-1.16 1.89-.99 3.02 1.1.09 2.21-.52 2.87-1.35z"/>
+            </svg>
+            TẢI CHO IPHONE (iOS)
+          </div>
+          <img id="qr-code-ios" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0284C7&data=https://testflight.apple.com/join/D4fC5G5z" alt="Mã QR TestFlight iOS" />
+          <div class="qr-scan-text">Quét mã mở TestFlight iPhone</div>
+          <a href="https://testflight.apple.com/join/D4fC5G5z" class="btn btn-ios-sm" target="_blank">
+            Mở TestFlight iOS
+          </a>
+        </div>
       </div>
   </div>
 
@@ -1546,11 +1650,20 @@
       var isAndroid = /Android/i.test(ua);
       var note = document.getElementById('os-note-text');
 
-      // Tự động gán link mã QR trỏ thẳng tới trang download.html để chuyển hướng tức thì
-      const qrImg = document.getElementById('qr-code-img');
-      if (qrImg) {
-        const downloadUrl = (window.location.hostname === 'diagai.vn') ? 'https://diagai.vn/download.html' : window.location.origin + '/download.html';
-        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=${encodeURIComponent(downloadUrl)}`;
+      // Tự động gọi API sinh 2 mã QR riêng biệt cho Android và iOS
+      const qrAndroid = document.getElementById('qr-code-android');
+      const qrIOS = document.getElementById('qr-code-ios');
+
+      const androidUrl = (window.location.hostname === 'diagai.vn')
+        ? 'https://diagai.vn/download/diag-ai-release.apk'
+        : window.location.origin + '/download/diag-ai-release.apk';
+      const iosUrl = IOS_TESTFLIGHT_URL;
+
+      if (qrAndroid) {
+        qrAndroid.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=${encodeURIComponent(androidUrl)}`;
+      }
+      if (qrIOS) {
+        qrIOS.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0284C7&data=${encodeURIComponent(iosUrl)}`;
       }
 
       // Gán sự kiện click thông minh cho tất cả các nút Tải App trên trang
