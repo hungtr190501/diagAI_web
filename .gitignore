@@ -1,3 +1,4 @@
-# Ignore large binary APK file to fit within GitHub 100MB limit
+# Ignore large binary files to fit within GitHub 100MB limit
 download/*.apk
+assets/videos/VideoGioiThieu_DiagAI*.mp4
 .DS_Store
