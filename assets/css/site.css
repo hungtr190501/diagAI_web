@@ -85,18 +85,19 @@ body {
 header {
   position: sticky;
   top: 0;
-  z-index: 1000;
-  background: rgba(241, 245, 249, 0.92);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  z-index: 99999;
+  background: rgba(241, 245, 249, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: 16px 0;
+  padding: 14px 0;
   transition: padding 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 header.is-scrolled {
   padding: 10px 0;
-  box-shadow: 0 8px 24px -4px rgba(11, 92, 52, 0.12);
+  background: rgba(241, 245, 249, 0.98);
+  box-shadow: 0 10px 30px -5px rgba(11, 92, 52, 0.15);
   border-bottom-color: rgba(11, 92, 52, 0.25);
 }
 
@@ -558,12 +559,49 @@ header,
     font-size: 16px;
   }
 
-  .brand-info p {
-    display: none;
+  .nav-wrapper {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .nav-links {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+    padding: 4px 0 2px 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
     display: none;
+  }
+
+  .nav-links li {
+    flex-shrink: 0;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: inline-block;
+  }
+
+  [data-theme="dark"] .nav-links a {
+    background: rgba(52, 211, 153, 0.15);
+    color: #34D399;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: var(--primary);
+    color: #ffffff !important;
   }
 
   .nav-actions {
