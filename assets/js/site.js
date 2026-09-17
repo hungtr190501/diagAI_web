@@ -149,6 +149,79 @@
     }
   }
 
+  function setupTheme() {
+    var themeBtn = document.getElementById('theme-btn');
+    if (!themeBtn) return;
+    var currentTheme = localStorage.getItem('theme') || 'light';
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+    applyTheme(currentTheme);
+    themeBtn.addEventListener('click', function () {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(currentTheme);
+    });
+  }
+
+  function setupReveal() {
+    var revealElements = document.querySelectorAll('.reveal');
+    if (!revealElements.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.15 });
+    revealElements.forEach(function (el) { observer.observe(el); });
+  }
+
+  // Lightbox - expose globally so onclick="openLightbox(...)" works from any page
+  window.openLightbox = function (src) {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    if (!lightbox || !lightboxImg) return;
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+  };
+
+  window.closeLightbox = function () {
+    var lightbox = document.getElementById('lightbox');
+    if (lightbox) lightbox.classList.remove('active');
+  };
+
+  function setupSmartDownload() {
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/i.test(ua);
+    var isAndroid = /Android/i.test(ua);
+    var ANDROID_APK_URL = 'download/diag-ai-release.apk';
+    var IOS_TESTFLIGHT_URL = 'https://testflight.apple.com/join/D4fC5G5z';
+
+    var qrAndroid = document.getElementById('qr-code-android');
+    var qrIOS = document.getElementById('qr-code-ios');
+    var androidUrl = (window.location.hostname === 'diagai.vn')
+      ? 'https://diagai.vn/download/diag-ai-release.apk'
+      : window.location.origin + '/download/diag-ai-release.apk';
+
+    if (qrAndroid) {
+      qrAndroid.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0B5C34&data=' + encodeURIComponent(androidUrl);
+    }
+    if (qrIOS) {
+      qrIOS.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0284C7&data=' + encodeURIComponent(IOS_TESTFLIGHT_URL);
+    }
+
+    document.querySelectorAll('a[href="download.html"]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        if (isIOS) {
+          e.preventDefault();
+          window.location.href = IOS_TESTFLIGHT_URL;
+        } else if (isAndroid) {
+          e.preventDefault();
+          window.location.href = ANDROID_APK_URL;
+        }
+      });
+    });
+  }
+
   function init() {
     injectPartials();
     markActiveNav();
