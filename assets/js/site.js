@@ -44,7 +44,15 @@
     '  </div>' +
     '</div>';
 
-  var FOOTER_HTML = null
+  var FOOTER_HTML =
+    '<footer>' +
+    '  <div>&copy; 2026 DiagAI. Dự án hỗ trợ chẩn đoán &amp; tư vấn bệnh Tay Chân Miệng cho trẻ em.</div>' +
+    '  <div>' +
+    '    <a href="index.html" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Trang Chủ</a>' +
+    '    <a href="ung-dung.html" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Tính Năng App</a>' +
+    '    <a href="download.html" style="color:var(--text-muted);text-decoration:none;">Tải App</a>' +
+    '  </div>' +
+    '</footer>';
 
   var LIGHTBOX_HTML =
     '<div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">' +
@@ -60,7 +68,7 @@
       headerMount.outerHTML = '<header>' + HEADER_HTML + '</header>';
     }
     var footerMount = document.getElementById('site-footer');
-    if (footerMount) {
+    if (footerMount && FOOTER_HTML) {
       footerMount.outerHTML = FOOTER_HTML;
     }
     if (!document.getElementById('lightbox')) {
