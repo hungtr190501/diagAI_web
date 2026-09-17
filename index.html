@@ -7,6 +7,8 @@
   <title>DiagAI - Ứng Dụng Hỗ Trợ Chẩn Đoán Và Tư Vấn Bệnh Tay Chân Miệng</title>
   <meta name="description"
     content="Ứng dụng hỗ trợ chẩn đoán và tư vấn bệnh Tay Chân Miệng cho bé hoàn toàn miễn phí, không cần mạng Internet. Giúp ba mẹ nhận biết sớm dấu hiệu bệnh, được trợ lý AI tư vấn và biết khi nào cần đưa bé đi bác sĩ." />
+  <link rel="icon" type="image/png" href="assets/icons/main.png" />
+  <link rel="apple-touch-icon" href="assets/icons/main.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
@@ -567,27 +569,7 @@
       line-height: 1.5;
     }
 
-    /* ============ Báo Chí - full width, bấm ảnh để mở PDF ============ */
-    .press-feature {
-      display: block;
-      border: 1.5px solid var(--border);
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .press-feature:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 28px 56px -12px rgba(217, 119, 6, 0.35);
-    }
-
-    .press-feature img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    /* ============ Báo Chí & Video Giới Thiệu (Style dùng chung nằm trong site.css) ============ */
 
     /* ============ Video Giới Thiệu Dự Án - video ngang lớn ============ */
     .wide-video-frame {
@@ -943,7 +925,7 @@
           <p class="research-block-desc">Nhóm thực hiện đã đến khảo sát trực tiếp, thu thập dữ liệu ca bệnh và xin góp
             ý từ bác sĩ chuyên khoa Nhiễm - Thần kinh để đảm bảo mô hình phản ánh đúng thực tế lâm sàng.</p>
           <div class="study-grid">
-            <div class="study-card">
+            <div class="study-card" data-tilt data-tilt-max="5">
               <img class="study-card-img" src="assets/images/HinhLamWeb/3.jpg" alt="Khảo sát tại Bệnh viện Nhi Đồng 1"
                 onclick="openLightbox('assets/images/HinhLamWeb/3.jpg')" />
               <div class="study-card-caption">
@@ -954,7 +936,7 @@
                 <p>Khảo sát và trao đổi trực tiếp cùng bác sĩ tại Bệnh viện Nhi Đồng 1 TP.HCM.</p>
               </div>
             </div>
-            <div class="study-card">
+            <div class="study-card" data-tilt data-tilt-max="5">
               <img class="study-card-img" src="assets/images/HinhLamWeb/5_CheMat copy.jpeg"
                 alt="Nghiên cứu thực tế các ca bệnh tại bệnh viện"
                 onclick="openLightbox('assets/images/HinhLamWeb/5_CheMat%20copy.jpeg')" />
@@ -969,7 +951,7 @@
           </div>
         </div>
 
-        <!-- Khối 2: Báo chí - full width, bấm vào ảnh để mở PDF -->
+        <!-- Khối 2: Báo chí - full width, hiệu ứng cong lật góc sách 3D, bấm vào ảnh để mở PDF -->
         <div class="research-block">
           <span class="research-block-label" style="background: rgba(217, 119, 6, 0.15); color: var(--warning);">
             <svg class="svg-icon" viewBox="0 0 24 24">
@@ -978,10 +960,38 @@
             </svg>
             BÁO CHÍ NÓI VỀ DIAGAI
           </span>
-          <a class="press-feature" href="assets/images/HinhLamWeb/BaoMucTim_DiagAI.pdf" target="_blank"
-            aria-label="Xem bài báo Mực Tím đầy đủ (PDF)">
-            <img src="assets/images/HinhLamWeb/BaoMucTim.png" alt="Bài báo Mực Tím giới thiệu DiagAI" />
-          </a>
+          <div class="press-feature-container">
+            <a class="press-feature" href="assets/images/HinhLamWeb/BaoMucTim_DiagAI.pdf" target="_blank"
+              aria-label="Xem bài báo Mực Tím đầy đủ (PDF)" data-tilt data-tilt-max="4">
+              <div class="press-paper-wrapper">
+                <img src="assets/images/HinhLamWeb/BaoMucTim.png" alt="Bài báo Mực Tím giới thiệu DiagAI" />
+                <!-- Nếp gấp rãnh gáy tạp chí ở giữa -->
+                <div class="press-spine"></div>
+                <!-- Vệt phản quang ánh sáng quét qua mặt in khi hover -->
+                <div class="press-glare"></div>
+                <!-- Nhãn nổi mở PDF -->
+                <!-- <div class="press-badge-float">
+                  <span class="pulse-dot"></span>
+                  <span>Báo Mực Tím • Bấm để đọc bản in PDF</span>
+                  <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z" />
+                  </svg>
+                </div> -->
+                <!-- Góc sách/báo cong lật lên (Book Corner Curl) -->
+                <!-- <div class="book-corner-curl">
+                  <div class="curl-under-shadow"></div>
+                  <div class="curl-fold"></div>
+                  <div class="curl-hint">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:14px;height:14px;color:var(--warning);">
+                      <path
+                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                    </svg>
+                    Lật trang PDF
+                  </div>
+                </div> -->
+              </div>
+            </a>
+          </div>
         </div>
       </section>
 

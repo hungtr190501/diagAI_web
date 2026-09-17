@@ -62,6 +62,13 @@
     '  </div>' +
     '</div>';
 
+  var AMBIENT_HTML =
+    '<div class="bg-ambient-layer" id="ambient-layer">' +
+    '  <div class="aura-blob aura-blob-1"></div>' +
+    '  <div class="aura-blob aura-blob-2"></div>' +
+    '  <div class="aura-blob aura-blob-3"></div>' +
+    '</div>';
+
   function injectPartials() {
     var headerMount = document.getElementById('site-header');
     if (headerMount) {
@@ -76,6 +83,32 @@
       lightboxHost.innerHTML = LIGHTBOX_HTML;
       document.body.appendChild(lightboxHost.firstElementChild);
     }
+    if (!document.getElementById('ambient-layer')) {
+      var auraHost = document.createElement('div');
+      auraHost.innerHTML = AMBIENT_HTML;
+      document.body.prepend(auraHost.firstElementChild);
+    }
+  }
+
+  function setupTiltEffect() {
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+    var tiltElements = document.querySelectorAll('[data-tilt]');
+    tiltElements.forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var rect = el.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var maxTilt = parseFloat(el.getAttribute('data-tilt-max')) || 7;
+        var rotateX = ((y - centerY) / centerY) * -maxTilt;
+        var rotateY = ((x - centerX) / centerX) * maxTilt;
+        el.style.transform = 'perspective(1400px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-8px) scale(1.015)';
+      });
+      el.addEventListener('mouseleave', function () {
+        el.style.transform = '';
+      });
+    });
   }
 
   function markActiveNav() {
@@ -119,44 +152,6 @@
     window.addEventListener('load', update);
   }
 
-  // Hover để tự xem ảnh phóng to — chỉ áp dụng trên thiết bị có chuột thật
-  // (desktop/web), không áp dụng cho điện thoại/máy tính bảng (chạm).
-  function setupHoverPreview() {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    var closeTimer = null;
-    var lightbox = document.getElementById('lightbox');
-
-    function cancelClose() {
-      if (closeTimer) {
-        clearTimeout(closeTimer);
-        closeTimer = null;
-      }
-    }
-
-    function scheduleClose() {
-      cancelClose();
-      closeTimer = setTimeout(function () {
-        closeLightbox();
-      }, 120);
-    }
-
-    document.querySelectorAll('[onclick*="openLightbox("]').forEach(function (el) {
-      var match = el.getAttribute('onclick').match(/openLightbox\('([^']+)'\)/);
-      if (!match) return;
-      var src = match[1];
-      el.addEventListener('mouseenter', function () {
-        cancelClose();
-        openLightbox(src);
-      });
-      el.addEventListener('mouseleave', scheduleClose);
-    });
-
-    if (lightbox) {
-      lightbox.addEventListener('mouseenter', cancelClose);
-      lightbox.addEventListener('mouseleave', scheduleClose);
-    }
-  }
-
   function setupTheme() {
     var themeBtn = document.getElementById('theme-btn');
     if (!themeBtn) return;
@@ -173,28 +168,84 @@
   }
 
   function setupReveal() {
-    var revealElements = document.querySelectorAll('.reveal');
+    var revealElements = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
     if (!revealElements.length) return;
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) entry.target.classList.add('active');
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
     revealElements.forEach(function (el) { observer.observe(el); });
   }
 
-  // Lightbox - expose globally so onclick="openLightbox(...)" works from any page
+  // Tự động nhận diện tab đang xem khi cuộn trang (ScrollSpy cho subnav ở ung-dung.html)
+  function setupSubnavScrollSpy() {
+    var subnavLinks = document.querySelectorAll('.subnav-inner a[href^="#"]');
+    if (!subnavLinks.length) return;
+    var sections = [];
+    subnavLinks.forEach(function (link) {
+      var targetId = link.getAttribute('href').substring(1);
+      var section = document.getElementById(targetId);
+      if (section) sections.push({ link: link, section: section });
+    });
+    if (!sections.length) return;
+
+    function onScroll() {
+      var headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 80;
+      var scrollPos = window.scrollY + headerH + 100;
+      var activeIndex = 0;
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].section.offsetTop <= scrollPos) {
+          activeIndex = i;
+        }
+      }
+      sections.forEach(function (item, idx) {
+        if (idx === activeIndex) {
+          item.link.classList.add('active');
+        } else {
+          item.link.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Chuyển mượt khi click chọn tab
+    subnavLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var targetId = link.getAttribute('href').substring(1);
+        var targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          var headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 80;
+          var topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (headerH + 60);
+          window.scrollTo({ top: topPos, behavior: 'smooth' });
+          targetEl.classList.remove('tab-highlight');
+          void targetEl.offsetWidth;
+          targetEl.classList.add('tab-highlight');
+        }
+      });
+    });
+  }
+
+  // Lightbox - Mở khi click vào ảnh, giữ nguyên tới khi bấm X hoặc click ngoài
   window.openLightbox = function (src) {
+    if (!src) return;
     var lightbox = document.getElementById('lightbox');
     var lightboxImg = document.getElementById('lightbox-img');
     if (!lightbox || !lightboxImg) return;
     lightboxImg.src = src;
     lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
   };
 
   window.closeLightbox = function () {
     var lightbox = document.getElementById('lightbox');
-    if (lightbox) lightbox.classList.remove('active');
+    if (lightbox) {
+      lightbox.classList.remove('active');
+    }
+    document.body.style.overflow = '';
   };
 
   function setupSmartDownload() {
@@ -237,8 +288,9 @@
     setupHeaderHeightVar();
     setupTheme();
     setupReveal();
+    setupTiltEffect();
+    setupSubnavScrollSpy();
     setupSmartDownload();
-    setupHoverPreview();
     document.dispatchEvent(new CustomEvent('site:ready'));
   }
 

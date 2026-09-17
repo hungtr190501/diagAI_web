@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tính Năng App DiagAI - Trang Chủ, Chẩn Đoán, Tư Vấn, Giới Thiệu</title>
+  <title>Tính Năng App DiagAI - Trang Chủ, Chẩn Đoán AI, Tư Vấn Offline, Giới Thiệu</title>
   <meta name="description"
-    content="Khám phá đầy đủ các màn hình và tính năng của ứng dụng DiagAI: Trang chủ tuyên truyền, Chẩn đoán qua hình ảnh, Trợ lý ảo Chatbot AI tư vấn và Giới thiệu ứng dụng." />
+    content="Khám phá chi tiết 4 không gian tính năng cốt lõi của ứng dụng DiagAI: Trang chủ tuyên truyền, Chẩn đoán AI đa phương thức, Trợ lý ảo Chatbot AI hoạt động 100% Offline và Sứ mệnh vì cộng đồng." />
+  <link rel="icon" type="image/png" href="assets/icons/main.png" />
+  <link rel="apple-touch-icon" href="assets/icons/main.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
@@ -14,117 +16,105 @@
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
-    /* Page hero */
+    /* ============ Custom Scoped Styles for ung-dung.html ============ */
+
+    /* Page Hero */
     .page-hero {
       text-align: center;
-      padding: 56px 0 24px;
+      padding: 56px 0 28px;
+      position: relative;
     }
 
-    .page-hero .tag {
+    .page-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       background: var(--primary-light);
       color: var(--primary);
-      border: 1px solid var(--border);
-      padding: 8px 18px;
+      border: 1.5px solid var(--border);
+      padding: 8px 20px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: 800;
-      margin-bottom: 18px;
-      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+      box-shadow: var(--shadow-sm);
     }
 
     .page-hero h1 {
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(30px, 4.2vw, 46px);
       font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .page-hero h1 span.gradient-text {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .page-hero p {
-      font-size: 16px;
+      font-size: 16.5px;
       color: var(--text-muted);
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    /* ============ Video Hướng Dẫn Sử Dụng - dính ngay dưới header ============ */
-    .guide-video-banner {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 0;
-    }
-
-    .mobile-video-section {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .mobile-video-frame {
-      justify-self: center;
-      width: 100%;
-      max-width: 260px;
-      aspect-ratio: 9 / 19.5;
-      background: #000;
-      border-radius: 40px;
-      border: 9px solid var(--bg);
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .mobile-video-frame::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 45%;
-      height: 20px;
-      background: var(--bg);
-      border-radius: 0 0 14px 14px;
-      z-index: 2;
-    }
-
-    .mobile-video-frame video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #000;
-    }
-
-    .mobile-video-text h3 {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .mobile-video-text p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      max-width: 720px;
+      margin: 0 auto 28px;
       line-height: 1.6;
     }
 
-    /* Sticky sub nav for the 4 app tabs - dùng icon SVG, không emoji.
-       top dùng biến --header-h (đo tự động bởi site.js) để luôn dính sát mép
-       dưới của header, không còn khoảng hở dù header cao/thấp khác nhau. */
+    /* Quick Tech Pills Bar */
+    .hero-tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .tech-pill:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Sticky Floating Subnav Bar */
     .subnav {
       position: sticky;
       top: var(--header-h, 78px);
       z-index: 90;
-      background: var(--bg);
-      padding: 18px 0;
-      margin-bottom: 8px;
+      background: rgba(241, 245, 249, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 14px 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .subnav {
+      background: rgba(7, 15, 10, 0.88);
     }
 
     .subnav-inner {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       flex-wrap: wrap;
       background: var(--card-bg);
@@ -133,7 +123,7 @@
       padding: 6px;
       max-width: fit-content;
       margin: 0 auto;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-md);
     }
 
     .subnav-inner a {
@@ -142,38 +132,46 @@
       gap: 8px;
       text-decoration: none;
       color: var(--text-muted);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13.5px;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 999px;
-      transition: all 0.25s ease;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
     }
 
     .subnav-inner a svg {
       flex-shrink: 0;
+      transition: transform 0.25s ease;
     }
 
     .subnav-inner a:hover {
       color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .subnav-inner a:hover svg {
+      transform: scale(1.15);
     }
 
     .subnav-inner a.active {
       background: linear-gradient(135deg, #0B5C34 0%, #10B981 100%);
-      color: #fff;
+      color: #FFFFFF !important;
+      box-shadow: 0 6px 16px rgba(11, 92, 52, 0.3);
     }
 
-    /* App screen sections (3 tab tính năng: Trang chủ / Chẩn đoán / Tư vấn) */
+    /* Section Structure */
     .app-section {
-      padding: 64px 0;
+      padding: 72px 0;
       scroll-margin-top: 150px;
       border-bottom: 1px solid var(--border);
+      position: relative;
     }
 
     .app-section-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      gap: 56px;
       align-items: center;
     }
 
@@ -181,7 +179,7 @@
       order: 2;
     }
 
-    .app-section-grid.reverse .app-shots {
+    .app-section-grid.reverse .app-visual {
       order: 1;
     }
 
@@ -193,100 +191,114 @@
       color: var(--primary);
       font-size: 12px;
       font-weight: 800;
-      padding: 6px 14px;
+      padding: 6px 16px;
       border-radius: 999px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 16px;
-    }
-
-    .app-text h2 {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-    }
-
-    .app-text p {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .app-feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .app-feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14.5px;
-      color: var(--text);
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 16px;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
       box-shadow: var(--shadow-sm);
     }
 
-    .app-feature-list svg {
-      flex-shrink: 0;
-      color: var(--primary-accent);
-      margin-top: 2px;
+    .app-text h2 {
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      line-height: 1.3;
+      color: var(--text);
     }
 
-    .app-shots {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
+    .app-text p.app-lead {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
     }
 
-    .phone-frame {
-      border-radius: 28px;
-      overflow: hidden;
-      border: 6px solid var(--card-bg);
-      box-shadow: var(--shadow-lg);
-      width: 100%;
-      max-width: 240px;
-      cursor: zoom-in;
-      transition: transform 0.3s ease;
-    }
-
-    .phone-frame:hover {
-      transform: translateY(-6px);
-    }
-
-    .phone-frame img {
-      width: 100%;
-      display: block;
-    }
-
-    /* ============ Giới thiệu app - tách biệt hẳn khỏi 3 tab tính năng ============
-       Dùng nền khối riêng (intro-panel) thay vì border-bottom như các tab trên,
-       để người xem nhận ra ngay đây là phần "về ứng dụng/nhóm thực hiện" chứ
-       không phải một tính năng demo nữa. */
+    /* Section 4: Giới thiệu & Sứ mệnh */
     #tc-gioithieu {
       border-bottom: none;
-      padding-bottom: 80px;
+      padding-bottom: 40px;
     }
 
     .intro-panel {
-      background: linear-gradient(135deg, var(--primary-light) 0%, rgba(2, 132, 199, 0.06) 100%);
+      background: linear-gradient(135deg, rgba(235, 247, 240, 0.8) 0%, rgba(2, 132, 199, 0.08) 100%);
       border: 1.5px solid var(--border);
-      border-radius: 32px;
-      padding: 48px;
+      border-radius: 36px;
+      padding: 54px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
     }
 
-    @media (max-width: 900px) {
+    [data-theme="dark"] .intro-panel {
+      background: linear-gradient(135deg, rgba(6, 44, 25, 0.8) 0%, rgba(2, 132, 199, 0.12) 100%);
+    }
+
+    .mission-quote {
+      position: relative;
+      padding: 20px 24px 20px 28px;
+      border-left: 4px solid var(--primary);
+      background: var(--card-bg);
+      border-radius: 0 16px 16px 0;
+      margin: 20px 0 28px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      font-style: italic;
+    }
+
+    .author-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .author-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .author-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-accent) 100%);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .author-info h5 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .author-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 960px) {
 
       .app-section-grid,
       .app-section-grid.reverse {
         grid-template-columns: 1fr;
+        gap: 36px;
       }
 
       .app-section-grid .app-text,
@@ -294,33 +306,22 @@
         order: 1;
       }
 
-      .app-section-grid .app-shots,
-      .app-section-grid.reverse .app-shots {
+      .app-section-grid .app-visual,
+      .app-section-grid.reverse .app-visual {
         order: 2;
-      }
-
-      .app-shots {
-        flex-wrap: wrap;
-      }
-
-      .phone-frame {
-        max-width: 42vw;
       }
 
       .intro-panel {
         padding: 28px 20px;
-        border-radius: 22px;
-      }
-
-      .mobile-video-section {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-        gap: 16px;
+        border-radius: 24px;
       }
     }
 
     @media (max-width: 480px) {
+      .page-hero {
+        padding: 36px 0 16px;
+      }
+
       .subnav-inner {
         gap: 4px;
       }
@@ -330,16 +331,8 @@
         font-size: 12px;
       }
 
-      .subnav-inner a span {
+      .subnav-inner a span.tab-title {
         display: none;
-      }
-
-      .phone-frame {
-        max-width: 44vw;
-      }
-
-      .mobile-video-frame {
-        max-width: 200px;
       }
     }
   </style>
@@ -347,245 +340,552 @@
 
 <body data-page="app">
 
-  <!-- Header dùng chung: được assets/js/site.js chèn vào để luôn đồng bộ với các trang khác -->
+  <!-- Header dùng chung -->
   <div id="site-header"></div>
 
-  <!-- Video Hướng Dẫn Sử Dụng App - đặt dính ngay dưới header, không có khoảng hở -->
-  <div class="guide-video-banner">
-    <div class="site-wrapper mobile-video-section">
-      <div class="mobile-video-frame">
-        <video controls preload="metadata" playsinline>
-          <source src="assets/videos/VideoHuongDanSuDungApp.mp4" type="video/mp4" />
-        </video>
+  <!-- HERO SECTION -->
+  <header class="page-hero site-wrapper reveal">
+    <div class="page-badge">
+      <span class="pulse-dot"></span>
+      HỆ SINH THÁI TÍNH NĂNG TOÀN DIỆN · PHIÊN BẢN 2.0.0
+    </div>
+    <h1>Trải Nghiệm Toàn Diện 4 Không Gian Tính Năng <br /><span class="gradient-text">Cốt Lõi Của App DiagAI</span>
+    </h1>
+    <p>Hệ thống hỗ trợ gia đình nhận biết sớm, chẩn đoán qua AI thị giác máy tính và tư vấn y khoa thông minh — Hoạt
+      động 100% Offline độc lập ngay cả khi không có sóng điện thoại hay Internet.</p>
+
+    <!-- Quick Tech Pills -->
+    <div class="hero-tech-pills">
+      <div class="tech-pill">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--primary-accent);">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+        <span>AI On-Device tức thì (&lt; 0.5s)</span>
       </div>
-      <div class="mobile-video-text">
-        <h3>Video Hướng Dẫn Sử Dụng App DiagAI</h3>
-        <p>Quay trực tiếp trên màn hình điện thoại, hướng dẫn ba mẹ từng bước: chụp ảnh vùng da tổn thương, chọn
-          triệu chứng hiện tại của bé và đọc kết quả chẩn đoán.</p>
-        <p>Di chuột vào video để xem trước nhanh, hoặc bấm để xem đầy đủ.</p>
+      <div class="tech-pill">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--secondary);">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+        </svg>
+        <span>100% Hoạt động Offline</span>
+      </div>
+      <div class="tech-pill">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--warning);">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
+        </svg>
+        <span>Bám sát phác đồ BV Nhi Đồng 1</span>
+      </div>
+      <div class="tech-pill">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--primary);">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg>
+        <span>Song ngữ Tiếng Việt &amp; English</span>
       </div>
     </div>
-  </div>
-
-  <div class="page-hero site-wrapper">
-    <div class="tag">GIỚI THIỆU ỨNG DỤNG DIAGAI</div>
-    <h1>Khám Phá Đầy Đủ 4 Màn Hình Chính Của App DiagAI</h1>
-    <p>Ứng dụng gồm 4 mục chính trên thanh menu: Trang chủ, Chẩn đoán, Tư vấn và Giới thiệu. Mỗi mục được thiết kế
-      đơn giản, dễ dùng để ba mẹ có thể tự thao tác ngay cả khi không có mạng Internet.</p>
-  </div>
-
-  <nav class="subnav">
-    <div class="subnav-inner" id="subnav-inner">
-      <a href="#tc-trangchu" class="active">
-        <svg class="svg-icon" viewBox="0 0 24 24">
-          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-        </svg>
-        <span>Trang chủ</span>
-      </a>
-      <a href="#tc-chandoan">
-        <svg class="svg-icon" viewBox="0 0 24 24">
-          <path d="M3.5 12h3l2-5 4 12 2-8 1.5 3H21" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <span>Chẩn đoán</span>
-      </a>
-      <a href="#tc-tuvan">
-        <svg class="svg-icon" viewBox="0 0 24 24">
-          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
-        </svg>
-        <span>Tư vấn</span>
-      </a>
-      <a href="#tc-gioithieu">
-        <svg class="svg-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-        </svg>
-        <span>Giới thiệu</span>
-      </a>
-    </div>
-  </nav>
+  </header>
 
   <main class="site-wrapper">
 
-    <!-- 1. TRANG CHỦ -->
-    <section id="tc-trangchu" class="app-section">
-      <div class="app-section-grid">
-        <div class="app-text">
-          <span class="app-badge">MENU 1 · TRANG CHỦ</span>
-          <h2>Trang Chủ Tuyên Truyền Bệnh Tay Chân Miệng</h2>
-          <p>Ngay khi mở app, ba mẹ sẽ thấy các thông tin tuyên truyền cơ bản nhất về bệnh Tay Chân Miệng: bệnh
-            thường gặp ở trẻ dưới 5 tuổi, lây qua đường tiêu hóa và tiếp xúc trực tiếp - nhận biết sớm giúp xử lý
-            kịp thời.</p>
-          <ul class="app-feature-list">
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Triệu chứng thường gặp: sốt nhẹ - mệt mỏi, phát ban dạng bóng nước ở lòng bàn tay/chân/gối, loét
-              miệng - đau họng - biếng ăn.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Nhắc mẹ kiểm tra hồng ban ở lòng bàn tay, bàn chân, gối, mông và loét miệng để phát hiện bệnh sớm.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Danh sách video minh họa các triệu chứng nguy hiểm cần đưa trẻ đến cơ sở y tế ngay.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Hỗ trợ song ngữ Tiếng Việt / English, dễ dùng cho mọi gia đình.
-            </li>
-          </ul>
-        </div>
-        <div class="app-shots">
-          <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/1.jpg')">
-            <img src="assets/images/HinhApp/1.jpg" alt="Màn hình Trang chủ DiagAI - phần 1" />
-          </div>
-          <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/2.jpg')">
-            <img src="assets/images/HinhApp/2.jpg" alt="Màn hình Trang chủ DiagAI - phần 2" />
+    <!-- VIDEO THEATER SHOWCASE (Khung iPhone Titanium Dynamic Island cao cấp) -->
+    <section class="video-theater reveal" aria-label="Video Hướng Dẫn Sử Dụng">
+      <div class="theater-grid">
+        <!-- Khung Smartphone chứa video -->
+        <div class="theater-phone-wrap" data-tilt data-tilt-max="5">
+          <div class="theater-phone">
+            <!-- Dynamic Island -->
+            <div class="dynamic-island">
+              <span class="island-lens"></span>
+              <span class="island-indicator"></span>
+            </div>
+            <!-- Video quay ngang/dọc điện thoại -->
+            <video controls preload="metadata" playsinline poster="assets/images/HinhApp/1.jpg">
+              <source src="assets/videos/VideoHuongDanSuDungApp.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 2. CHẨN ĐOÁN -->
-    <section id="tc-chandoan" class="app-section">
-      <div class="app-section-grid reverse">
-        <div class="app-text">
-          <span class="app-badge">MENU 2 · CHẨN ĐOÁN</span>
-          <h2>Chẩn Đoán Bệnh Qua Hình Ảnh Và Triệu Chứng</h2>
-          <p>Ba mẹ chụp ảnh rõ nét vùng da tổn thương trên bàn tay, bàn chân, miệng của bé (tránh che khuất vùng
-            tổn thương), sau đó tích chọn thêm các triệu chứng hiện tại của trẻ để tăng độ chính xác.</p>
-          <ul class="app-feature-list">
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Chụp ảnh trực tiếp bằng Camera hoặc chọn ảnh có sẵn từ Thư viện.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Chọn triệu chứng hiện tại: sốt trên 38.5 độ, nổi hồng ban/bóng nước, ăn kém - chảy nước miếng, sốt cao
-              khó hạ, giật mình chới với, run chi...
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Kết hợp ảnh AI phân tích và triệu chứng đã chọn để đưa ra kết quả, cảnh báo SOS khi có dấu hiệu
-              nguy hiểm cần đến cơ sở y tế gần nhất.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Luôn nhắc: kết quả chỉ mang tính tham khảo, không thay thế chẩn đoán của bác sĩ.
-            </li>
-          </ul>
-        </div>
-        <div class="app-shots">
-          <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/3.jpg')">
-            <img src="assets/images/HinhApp/3.jpg" alt="Màn hình Chẩn đoán DiagAI - chụp ảnh và chọn triệu chứng" />
-          </div>
-          <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/4.jpg')">
-            <img src="assets/images/HinhApp/4.jpg" alt="Màn hình Chẩn đoán DiagAI - kết quả" />
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- Thông tin hướng dẫn 3 bước thao tác -->
+        <div class="theater-info">
+          <span class="app-badge">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            THAO TÁC THỰC TẾ TRÊN MÁY
+          </span>
+          <h2>Video Hướng Dẫn Sử Dụng App DiagAI</h2>
+          <p class="app-lead">
+            Quay trực tiếp trên màn hình điện thoại, giúp phụ huynh dễ dàng thao tác chuẩn xác chỉ trong 3 bước nhanh
+            chóng mà không cần bất kỳ kỹ năng công nghệ nào.
+          </p>
 
-    <!-- 3. TƯ VẤN -->
-    <section id="tc-tuvan" class="app-section">
-      <div class="app-section-grid">
-        <div class="app-text">
-          <span class="app-badge">MENU 3 · TƯ VẤN</span>
-          <h2>Trợ Lý Ảo Chatbot AI Hỗ Trợ Tư Vấn</h2>
-          <p>DiagAI tích hợp trợ lý ảo Chatbot AI chạy hoàn toàn ngay trên điện thoại (offline), giúp ba mẹ hỏi
-            đáp về bệnh Tay Chân Miệng bất cứ lúc nào, kể cả khi không có Internet.</p>
-          <ul class="app-feature-list">
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Lần đầu sử dụng, app tải thư viện AI về máy (~1.1 GB) để có thể trả lời hoàn toàn offline sau đó.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Trợ lý AI giải đáp thắc mắc về triệu chứng, cách chăm sóc và phòng ngừa bệnh Tay Chân Miệng cho bé.
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Có sẵn các câu hỏi gợi ý nhanh như "Bệnh tay chân miệng là gì?", "Cách phòng chống?"...
-            </li>
-            <li>
-              <svg class="svg-icon" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              Câu trả lời được đối chiếu với bộ hỏi đáp y khoa chính thức, hạn chế thông tin sai lệch.
-            </li>
-          </ul>
-        </div>
-        <div class="app-shots">
-          <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/5.jpg')">
-            <img src="assets/images/HinhApp/5.jpg" alt="Màn hình Tư vấn DiagAI - tải thư viện AI" />
-          </div>
-          <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/6.jpg')">
-            <img src="assets/images/HinhApp/6.jpg" alt="Màn hình Tư vấn DiagAI - trò chuyện với trợ lý AI" />
-          </div>
-        </div>
-      </div>
-    </section>
+          <div class="theater-steps">
+            <!-- Bước 1 -->
+            <div class="theater-step-item">
+              <div class="step-num">01</div>
+              <div class="step-content">
+                <h5>Chụp Ảnh Vùng Da Tổn Thương</h5>
+                <p>Mở camera hoặc chọn ảnh từ thư viện, canh khung vuông góc nốt hồng ban/bóng nước ở lòng bàn tay, bàn
+                  chân hoặc vòm miệng.</p>
+              </div>
+            </div>
 
-    <!-- 4. GIỚI THIỆU - tách biệt hẳn bằng khối nền riêng (intro-panel) -->
-    <section id="tc-gioithieu" class="app-section">
-      <div class="intro-panel">
-        <div class="app-section-grid reverse">
-          <div class="app-text">
-            <span class="app-badge">MENU 4 · GIỚI THIỆU</span>
-            <h2>Giới Thiệu Thông Tin Về Ứng Dụng</h2>
-            <p>Mục Giới thiệu cho biết DiagAI là gì, sứ mệnh của dự án và những người thực hiện ứng dụng.</p>
-            <ul class="app-feature-list">
-              <li>
-                <svg class="svg-icon" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
-                <strong>Ứng dụng DiagAI</strong> - Hỗ trợ chẩn đoán và tư vấn bệnh Tay Chân Miệng cho trẻ em, phiên
-                bản 2.0.0.
-              </li>
-              <li>
-                <svg class="svg-icon" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
-                <strong>Sứ mệnh:</strong> hỗ trợ người dân ở vùng sâu vùng xa, nơi không có sóng điện thoại và
-                internet, có thể biết thông tin và chẩn đoán ban đầu về bệnh Tay Chân Miệng ở trẻ em, nhằm giảm bùng
-                phát dịch và nguy cơ tử vong cho trẻ.
-              </li>
-              <li>
-                <svg class="svg-icon" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                </svg>
-                <strong>Tác giả:</strong> Trần Lê Bảo Hân và Cao Đặng Minh Thư - Trường Phổ thông Năng khiếu,
-                ĐHQG-TP.HCM.
-              </li>
-            </ul>
-          </div>
-          <div class="app-shots">
-            <div class="phone-frame" onclick="openLightbox('assets/images/HinhApp/7.jpg')">
-              <img src="assets/images/HinhApp/7.jpg" alt="Màn hình Giới thiệu DiagAI" />
+            <!-- Bước 2 -->
+            <div class="theater-step-item">
+              <div class="step-num">02</div>
+              <div class="step-content">
+                <h5>Tích Chọn Triệu Chứng Đi Kèm</h5>
+                <p>Chọn các biểu hiện hiện tại của bé (sốt trên 38.5°C, quấy khóc, biếng ăn, giật mình...) để mô hình AI
+                  tăng độ nhạy phân tích.</p>
+              </div>
+            </div>
+
+            <!-- Bước 3 -->
+            <div class="theater-step-item">
+              <div class="step-num">03</div>
+              <div class="step-content">
+                <h5>Xem Kết Quả &amp; Hướng Dẫn Xử Trí</h5>
+                <p>Nhận ngay đánh giá nguy cơ, cảnh báo SOS màu đỏ khi có dấu hiệu nặng và gợi ý cách chăm sóc hoặc cơ
+                  sở y tế gần nhất.</p>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STICKY SUBNAV BAR (Floating Island Glassmorphism) -->
+    <nav class="subnav" aria-label="Menu các màn hình app">
+      <div class="subnav-inner" id="subnav-inner">
+        <a href="#tc-trangchu" class="active">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          <span class="tab-title">01 · Trang Chủ</span>
+        </a>
+        <a href="#tc-chandoan">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 12h3l2-5 4 12 2-8 1.5 3H21" />
+          </svg>
+          <span class="tab-title">02 · Chẩn Đoán AI</span>
+        </a>
+        <a href="#tc-tuvan">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+          </svg>
+          <span class="tab-title">03 · Trợ Lý Tư Vấn</span>
+        </a>
+        <a href="#tc-gioithieu">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+          </svg>
+          <span class="tab-title">04 · Giới Thiệu</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ==================== 1. TRANG CHỦ ==================== -->
+    <section id="tc-trangchu" class="app-section reveal">
+      <div class="app-section-grid">
+        <!-- Thông tin tính năng -->
+        <div class="app-text">
+          <span class="app-badge">MÀN HÌNH 01 · TRANG CHỦ</span>
+          <h2>Kho Tri Thức &amp; Tuyên Truyền Bệnh Tay Chân Miệng</h2>
+          <p class="app-lead">
+            Được xây dựng như một cẩm nang y tế điện tử bỏ túi, cung cấp ngay những kiến thức chuẩn khoa học từ bác sĩ
+            chuyên khoa Nhi ngay khi mở ứng dụng.
+          </p>
+
+          <!-- 4 Feature Cards -->
+          <div class="features-grid">
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #0B5C34 0%, #10B981 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                </svg>
+              </div>
+              <h4>Dấu Hiệu Ban Đầu</h4>
+              <p>Nhận biết sớm triệu chứng sốt nhẹ, mệt mỏi, quấy khóc và biếng ăn ở trẻ dưới 5 tuổi.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <h4>Vị Trí Nốt Hồng Ban</h4>
+              <p>Hướng dẫn rà soát kỹ lòng bàn tay, bàn chân, đầu gối, mông và vết loét đau trong vòm họng.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #DC2626 0%, #F87171 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+                </svg>
+              </div>
+              <h4>Video Triệu Chứng Nguy Hiểm</h4>
+              <p>Danh sách video minh họa dấu hiệu giật mình chới với, run chi để đưa trẻ đi cấp cứu kịp thời.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #D97706 0%, #FBBF24 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" />
+                </svg>
+              </div>
+              <h4>Song Ngữ Việt - Anh</h4>
+              <p>Hỗ trợ chuyển đổi ngôn ngữ tức thì, thân thiện với mọi gia đình và khách nước ngoài.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual: Dual Phones 3D Showcase -->
+        <div class="app-visual">
+          <div class="dual-phones" data-tilt data-tilt-max="4">
+            <!-- Floating Chips -->
+            <div class="floating-chip top-left">
+              <span class="chip-icon" style="background:#0B5C34;">👶</span>
+              <span>Dành cho trẻ dưới 5 tuổi</span>
+            </div>
+            <div class="floating-chip bottom-right">
+              <span class="chip-icon" style="background:#0284C7;">🔔</span>
+              <span>Nhắc mẹ kiểm tra mỗi ngày</span>
+            </div>
+
+            <!-- Phone 1 (Primary - Mặt trước) -->
+            <div class="phone-mockup phone-primary" onclick="openLightbox('assets/images/HinhApp/1.jpg')">
+              <div class="dynamic-island">
+                <span class="island-lens"></span>
+                <span class="island-indicator"></span>
+              </div>
+              <img src="assets/images/HinhApp/1.jpg" alt="Màn hình Trang chủ DiagAI - Phần 1" />
+              <div class="phone-screen-glare"></div>
+              <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+            </div>
+
+            <!-- Phone 2 (Secondary - Nghiêng sau) -->
+            <div class="phone-mockup phone-secondary" onclick="openLightbox('assets/images/HinhApp/2.jpg')">
+              <div class="dynamic-island">
+                <span class="island-lens"></span>
+                <span class="island-indicator"></span>
+              </div>
+              <img src="assets/images/HinhApp/2.jpg" alt="Màn hình Trang chủ DiagAI - Phần 2" />
+              <div class="phone-screen-glare"></div>
+              <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 2. CHẨN ĐOÁN ==================== -->
+    <section id="tc-chandoan" class="app-section reveal">
+      <div class="app-section-grid reverse">
+        <!-- Thông tin tính năng -->
+        <div class="app-text">
+          <span class="app-badge" style="background:rgba(2, 132, 199, 0.12); color:var(--secondary);">MÀN HÌNH 02 · CHẨN
+            ĐOÁN AI</span>
+          <h2>Chẩn Đoán Kết Hợp Hình Ảnh AI &amp; Triệu Chứng Lâm Sàng</h2>
+          <p class="app-lead">
+            Đột phá công nghệ thị giác máy tính: Kết hợp nhận diện vết tổn thương da cùng triệu chứng thực tế của bé để
+            tối ưu hóa độ nhạy và hạn chế tối đa kết quả sai lệch.
+          </p>
+
+          <!-- 4 Feature Cards -->
+          <div class="features-grid">
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z" />
+                  <path
+                    d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
+                </svg>
+              </div>
+              <h4>Camera Hoặc Thư Viện</h4>
+              <p>Chụp ảnh trực tiếp với gợi ý lấy nét tự động, hoặc chọn ảnh có sẵn đã lưu trong thư viện máy.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #0B5C34 0%, #10B981 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
+                </svg>
+              </div>
+              <h4>Bộ Lọc Triệu Chứng Kèm Theo</h4>
+              <p>Tích chọn nhanh: sốt &gt; 38.5°C, chảy nước miếng, giật mình chới với, run chi... tăng độ chính xác.
+              </p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.05.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.01-4.09l-2.45-1.45C16.14 17.84 14.23 19 12 19z" />
+                </svg>
+              </div>
+              <h4>Phân Tích AI Tức Thì</h4>
+              <p>Thuật toán đối chiếu hình ảnh tổn thương với bộ dữ liệu ca bệnh thực tế thu thập tại BV Nhi Đồng 1.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #DC2626 0%, #F87171 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+                </svg>
+              </div>
+              <h4>Cảnh Báo SOS Khẩn Cấp</h4>
+              <p>Tự động phát tín hiệu cảnh báo màu đỏ khi phát hiện dấu hiệu nguy hiểm cần tới bệnh viện ngay.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual: Dual Phones 3D Showcase -->
+        <div class="app-visual">
+          <div class="dual-phones" data-tilt data-tilt-max="4">
+            <!-- Floating Chips -->
+            <div class="floating-chip top-left">
+              <span class="chip-icon" style="background:#0284C7;">🔬</span>
+              <span>AI Vision phân tích vết ban</span>
+            </div>
+            <div class="floating-chip bottom-right">
+              <span class="chip-icon" style="background:#DC2626;">🚨</span>
+              <span>Cảnh báo nguy cơ độ 2a/2b</span>
+            </div>
+
+            <!-- Phone 1 (Primary - Mặt trước: Chụp & chọn triệu chứng) -->
+            <div class="phone-mockup phone-primary" onclick="openLightbox('assets/images/HinhApp/3.jpg')">
+              <div class="dynamic-island">
+                <span class="island-lens"></span>
+                <span class="island-indicator"></span>
+              </div>
+              <img src="assets/images/HinhApp/3.jpg" alt="Màn hình Chẩn đoán DiagAI - Chụp ảnh và chọn triệu chứng" />
+              <div class="phone-screen-glare"></div>
+              <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+            </div>
+
+            <!-- Phone 2 (Secondary - Nghiêng sau: Kết quả phân tích) -->
+            <div class="phone-mockup phone-secondary" onclick="openLightbox('assets/images/HinhApp/4.jpg')">
+              <div class="dynamic-island">
+                <span class="island-lens"></span>
+                <span class="island-indicator"></span>
+              </div>
+              <img src="assets/images/HinhApp/4.jpg" alt="Màn hình Chẩn đoán DiagAI - Kết quả phân tích" />
+              <div class="phone-screen-glare"></div>
+              <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. TƯ VẤN AI ==================== -->
+    <section id="tc-tuvan" class="app-section reveal">
+      <div class="app-section-grid">
+        <!-- Thông tin tính năng -->
+        <div class="app-text">
+          <span class="app-badge" style="background:rgba(16, 185, 129, 0.15); color:var(--primary);">MÀN HÌNH 03 · TRỢ
+            LÝ ẢO Y TẾ</span>
+          <h2>Trợ Lý AI Chatbot Tư Vấn Chạy Hoàn Toàn Offline</h2>
+          <p class="app-lead">
+            Đóng gói toàn bộ mô hình ngôn ngữ lớn (LLM) để thực thi trực tiếp trên phần cứng điện thoại, giúp ba mẹ hỏi
+            đáp về bệnh bất kỳ lúc nào mà không cần kết nối Internet.
+          </p>
+
+          <!-- 4 Feature Cards -->
+          <div class="features-grid">
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #059669 0%, #34D399 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+                </svg>
+              </div>
+              <h4>100% On-Device Offline</h4>
+              <p>Tải bộ dữ liệu AI 1 lần (~1.1 GB), sau đó hoạt động vĩnh viễn không cần mạng 4G/Wifi.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
+                </svg>
+              </div>
+              <h4>Tư Vấn Chăm Sóc 24/7</h4>
+              <p>Giải đáp cách hạ sốt an toàn, chế độ ăn cho bé đau họng, cách ly và vệ sinh đồ dùng tránh lây lan.</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #D97706 0%, #FBBF24 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <h4>Gợi Ý Câu Hỏi Nhanh</h4>
+              <p>Chạm 1 chạm vào các câu hỏi mẫu như "Bệnh là gì?", "Cách phòng ngừa?", "Khi nào cần đi viện?".</p>
+            </div>
+
+            <div class="feature-glass-card">
+              <div class="feature-card-icon" style="background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                </svg>
+              </div>
+              <h4>Bảo Mật Dữ Liệu Tuyệt Đối</h4>
+              <p>Mọi câu hỏi và dữ liệu sức khỏe của gia đình đều ở lại trên điện thoại của bạn, không gửi lên đám mây.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual: Dual Phones 3D Showcase -->
+        <div class="app-visual">
+          <div class="dual-phones" data-tilt data-tilt-max="4">
+            <!-- Floating Chips -->
+            <div class="floating-chip top-left">
+              <span class="chip-icon" style="background:#059669;">🧠</span>
+              <span>Mô hình AI On-Device 1.1GB</span>
+            </div>
+            <div class="floating-chip bottom-right">
+              <span class="chip-icon" style="background:#4F46E5;">🔒</span>
+              <span>Riêng tư &amp; Bảo mật tuyệt đối</span>
+            </div>
+
+            <!-- Phone 1 (Primary: Tải thư viện AI) -->
+            <div class="phone-mockup phone-primary" onclick="openLightbox('assets/images/HinhApp/5.jpg')">
+              <div class="dynamic-island">
+                <span class="island-lens"></span>
+                <span class="island-indicator"></span>
+              </div>
+              <img src="assets/images/HinhApp/5.jpg" alt="Màn hình Tư vấn DiagAI - Tải thư viện AI" />
+              <div class="phone-screen-glare"></div>
+              <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+            </div>
+
+            <!-- Phone 2 (Secondary: Trò chuyện tư vấn cùng AI) -->
+            <div class="phone-mockup phone-secondary" onclick="openLightbox('assets/images/HinhApp/6.jpg')">
+              <div class="dynamic-island">
+                <span class="island-lens"></span>
+                <span class="island-indicator"></span>
+              </div>
+              <img src="assets/images/HinhApp/6.jpg" alt="Màn hình Tư vấn DiagAI - Hội thoại cùng trợ lý AI" />
+              <div class="phone-screen-glare"></div>
+              <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. GIỚI THIỆU & SỨ MỆNH ==================== -->
+    <section id="tc-gioithieu" class="app-section reveal">
+      <div class="intro-panel">
+        <div class="app-section-grid reverse">
+          <!-- Nội dung giới thiệu & tác giả -->
+          <div class="app-text">
+            <span class="app-badge" style="background:rgba(217, 119, 6, 0.15); color:var(--warning);">MÀN HÌNH 04 · SỨ
+              MỆNH DỰ ÁN</span>
+            <h2>DiagAI: Sứ Mệnh Y Tế Số Cho Trẻ Em Vùng Xa</h2>
+
+            <div class="mission-quote">
+              "Mang công nghệ trí tuệ nhân tạo đến những vùng sâu, vùng xa — nơi sóng điện thoại và internet còn nhiều
+              hạn chế, giúp các bậc cha mẹ phát hiện sớm bệnh Tay Chân Miệng, hạn chế nguy cơ bùng phát dịch và tử vong
+              cho trẻ nhỏ."
+            </div>
+
+            <!-- Danh thiếp tác giả & đơn vị -->
+            <div class="author-card">
+              <div class="author-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+              </div>
+              <div class="author-info">
+                <h5>Trần Lê Bảo Hân &amp; Cao Đặng Minh Thư</h5>
+                <p>Học sinh Trường Phổ thông Năng khiếu, ĐHQG-TP.HCM</p>
+              </div>
+            </div>
+
+            <div class="author-card">
+              <div class="author-icon" style="background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
+                </svg>
+              </div>
+              <div class="author-info">
+                <h5>Đồng Hành Chuyên Môn Bác Sĩ Nhi Khoa</h5>
+                <p>Khảo sát và tham vấn cùng Bác sĩ Chuyên khoa Nhiễm - Thần kinh, BV Nhi Đồng 1 TP.HCM</p>
+              </div>
+            </div>
+
+            <div class="author-card">
+              <div class="author-icon" style="background: linear-gradient(135deg, #D97706 0%, #FBBF24 100%);">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <div class="author-info">
+                <h5>Giải Nhất Sáng Tạo Thanh Thiếu Nhi TP.HCM</h5>
+                <p>Được tuyên dương và ghi nhận trong cuộc thi Sáng tạo TTN-NĐ TP.HCM lần thứ 21 năm 2026</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone mockup màn hình giới thiệu -->
+          <div class="app-visual" style="display:flex; justify-content:center;">
+            <div class="phone-mockup-wrap" data-tilt data-tilt-max="5">
+              <div class="floating-chip top-right">
+                <span class="chip-icon" style="background:#D97706;">⭐</span>
+                <span>Phiên bản Release 2.0.0</span>
+              </div>
+              <div class="phone-mockup" onclick="openLightbox('assets/images/HinhApp/7.jpg')">
+                <div class="dynamic-island">
+                  <span class="island-lens"></span>
+                  <span class="island-indicator"></span>
+                </div>
+                <img src="assets/images/HinhApp/7.jpg" alt="Màn hình Giới thiệu DiagAI - Phiên bản và tác giả" />
+                <div class="phone-screen-glare"></div>
+                <!-- <div class="phone-zoom-hint"><span>🔍 Bấm để phóng to</span></div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM CALL TO ACTION BANNER -->
+    <section class="bottom-cta-banner reveal" aria-label="Tải ứng dụng DiagAI">
+      <div class="cta-content">
+        <h2>Sẵn Sàng Bảo Vệ Sức Khỏe Toàn Diện Cho Bé Yêu?</h2>
+        <p>
+          Tải ngay ứng dụng DiagAI miễn phí để chủ động nhận biết sớm các dấu hiệu bất thường của bệnh Tay Chân Miệng.
+          Nhẹ máy, an toàn và sẵn sàng hoạt động mọi lúc mọi nơi kể cả khi không có mạng.
+        </p>
+        <div class="cta-actions">
+          <a href="download/diag-ai-release.apk" class="btn-cta-white" download>
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+            </svg>
+            Tải APK Android (Miễn Phí)
+          </a>
+          <a href="https://testflight.apple.com/join/D4fC5G5z" target="_blank" class="btn-cta-outline">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <path
+                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 0.6-2.65 1.35-.58.66-1.09 1.73-.95 2.76 1 .08 2.05-.51 2.68-1.26z" />
+            </svg>
+            Cài Đặt Trên iPhone (iOS)
+          </a>
         </div>
       </div>
     </section>
@@ -596,7 +896,7 @@
     <div id="site-footer"></div>
   </div>
 
-  <!-- Header/Footer/Lightbox/Theme/OS-detect dùng chung -->
+  <!-- Header/Footer/Lightbox/Theme/OS-detect/Tilt dùng chung -->
   <script src="assets/js/site.js"></script>
 
   <script>
@@ -608,15 +908,17 @@
       var links = Array.from(document.querySelectorAll('#subnav-inner a'));
       function updateActive() {
         var current = sections[0];
-        var offset = 160;
+        var offset = 180;
         sections.forEach(function (sec) {
           if (sec && sec.getBoundingClientRect().top - offset <= 0) {
             current = sec;
           }
         });
-        links.forEach(function (link) {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + current.id);
-        });
+        if (current) {
+          links.forEach(function (link) {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current.id);
+          });
+        }
       }
       window.addEventListener('scroll', updateActive, { passive: true });
       updateActive();
