@@ -7,7 +7,7 @@
 (function () {
   var HEADER_HTML =
     '<div class="site-wrapper nav-wrapper">' +
-    '  <a href="index.html" class="brand">' +
+    '  <a href="./" class="brand">' +
     '    <img src="assets/icons/main.png" alt="DiagAI Logo" />' +
     '    <div class="brand-info">' +
     '      <h1>DiagAI</h1>' +
@@ -15,10 +15,10 @@
     '    </div>' +
     '  </a>' +
     '  <ul class="nav-links">' +
-    '    <li><a href="index.html" data-nav="home">Trang Chủ</a></li>' +
+    '    <li><a href="./" data-nav="home">Trang Chủ</a></li>' +
     '    <li><a href="ung-dung.html" data-nav="app">Tính Năng App</a></li>' +
-    '    <li><a href="index.html#video-warnings" data-nav="danger">Dấu Hiệu Nguy Hiểm</a></li>' +
-    '    <li><a href="index.html#research" data-nav="research">Nghiên Cứu &amp; Báo Chí</a></li>' +
+    '    <li><a href="./#video-warnings" data-nav="danger">Dấu Hiệu Nguy Hiểm</a></li>' +
+    '    <li><a href="./#research" data-nav="research">Nghiên Cứu &amp; Báo Chí</a></li>' +
     '  </ul>' +
     '  <div class="nav-actions">' +
     '    <button class="theme-toggle" id="theme-btn" aria-label="Đổi giao diện Sáng/Tối" title="Đổi giao diện Sáng/Tối">' +
@@ -48,7 +48,7 @@
     '<footer>' +
     '  <div>&copy; 2026 DiagAI. Dự án hỗ trợ chẩn đoán &amp; tư vấn bệnh Tay Chân Miệng cho trẻ em.</div>' +
     '  <div>' +
-    '    <a href="index.html" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Trang Chủ</a>' +
+    '    <a href="./" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Trang Chủ</a>' +
     '    <a href="ung-dung.html" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Tính Năng App</a>' +
     '    <a href="download.html" style="color:var(--text-muted);text-decoration:none;">Tải App</a>' +
     '  </div>' +
