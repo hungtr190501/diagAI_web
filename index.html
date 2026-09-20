@@ -951,7 +951,49 @@
           </div>
         </div>
 
-        <!-- Khối 2: Báo chí - full width, hiệu ứng cong lật góc sách 3D, bấm vào ảnh để mở PDF -->
+        <!-- Khối 2: Phóng sự VTV Thời Sự - Tình hình dịch bệnh thực tế tại các bệnh viện nhi -->
+        <div class="research-block">
+          <span class="research-block-label" style="background: rgba(220, 38, 38, 0.12); color: var(--danger);">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" />
+            </svg>
+            PHÓNG SỰ TRUYỀN HÌNH VTV THỜI SỰ
+          </span>
+          <h3 class="research-block-title">Dịch Bệnh Tay Chân Miệng Tăng Cao Tại Các Bệnh Viện Nhi</h3>
+          <p class="research-block-desc">Phóng sự thời sự ghi nhận số ca mắc tăng gấp 2,5 lần, nhiều ca chuyển nặng phải hỗ trợ thở máy — hồi chuông cảnh báo ba mẹ cần chủ động theo dõi và phát hiện sớm cho con.</p>
+
+          <div class="hospital-video-card" data-tilt data-tilt-max="3">
+            <div class="hospital-video-frame">
+              <video controls preload="metadata" playsinline poster="assets/images/benhvien_thumb.jpg">
+                <source src="assets/videos/benhvien.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="hospital-video-info">
+              <div class="hospital-tag">
+                <span class="pulse-dot danger"></span>
+                Ghi Nhận Thực Tế Tại Cơ Sở Y Tế
+              </div>
+              <h4>Số Ca Mắc Tay Chân Miệng Tăng Gấp 2,5 Lần, Nhiều Trẻ Phải Thở Máy</h4>
+              <p>Ghi nhận tại các khoa hồi sức - nhiễm nhi: Số lượng bệnh nhi chuyển nặng gia tăng nhanh chóng. Nhiều phụ huynh nhầm lẫn triệu chứng khởi phát với sốt phát ban hay dị ứng thông thường, dẫn đến việc đưa trẻ đến viện khi đã xuất hiện biến chứng nguy hiểm.</p>
+              <ul class="hospital-highlights">
+                <li>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+                  Gia tăng đột biến các ca biến chứng thần kinh, suy hô hấp, sốc tim mạch.
+                </li>
+                <li>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
+                  Khuyến cáo ba mẹ đưa trẻ đi khám ngay khi sốt cao khó hạ, giật mình, run chi.
+                </li>
+                <li>
+                  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Ứng dụng DiagAI hỗ trợ ba mẹ kiểm tra và phát hiện sớm ngay tại nhà.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khối 3: Báo chí - full width, hiệu ứng cong lật góc sách 3D, bấm vào ảnh để mở PDF -->
         <div class="research-block">
           <span class="research-block-label" style="background: rgba(217, 119, 6, 0.15); color: var(--warning);">
             <svg class="svg-icon" viewBox="0 0 24 24">
@@ -969,26 +1011,11 @@
                 <div class="press-spine"></div>
                 <!-- Vệt phản quang ánh sáng quét qua mặt in khi hover -->
                 <div class="press-glare"></div>
-                <!-- Nhãn nổi mở PDF -->
-                <!-- <div class="press-badge-float">
-                  <span class="pulse-dot"></span>
-                  <span>Báo Mực Tím • Bấm để đọc bản in PDF</span>
-                  <svg class="svg-icon" viewBox="0 0 24 24">
-                    <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z" />
-                  </svg>
-                </div> -->
-                <!-- Góc sách/báo cong lật lên (Book Corner Curl) -->
-                <!-- <div class="book-corner-curl">
+                <!-- Góc sách/báo cong lật lên (Book Corner Curl tinh tế, không chèn chữ lên mặt báo) -->
+                <div class="book-corner-curl">
                   <div class="curl-under-shadow"></div>
                   <div class="curl-fold"></div>
-                  <div class="curl-hint">
-                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:14px;height:14px;color:var(--warning);">
-                      <path
-                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
-                    </svg>
-                    Lật trang PDF
-                  </div>
-                </div> -->
+                </div>
               </div>
             </a>
           </div>
