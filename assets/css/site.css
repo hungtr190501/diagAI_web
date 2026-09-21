@@ -1639,9 +1639,9 @@ footer {
   }
 }
 
-/* ============ Phóng Sự Bệnh Viện (VTV Thời Sự benhvien.mp4) - Canh Giữa Spotlight ============ */
+/* ============ Phóng Sự Bệnh Viện (VTV Thời Sự benhvien.mp4) ============ */
 .hospital-video-section {
-  text-align: center;
+  text-align: left;
   margin-bottom: 48px;
 }
 
@@ -1649,6 +1649,7 @@ footer {
   max-width: 580px;
   margin: 24px auto 0;
   position: relative;
+  text-align: center;
 }
 
 .hospital-video-frame {
