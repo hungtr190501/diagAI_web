@@ -1639,36 +1639,38 @@ footer {
   }
 }
 
-/* ============ Phóng Sự Bệnh Viện (VTV Thời Sự benhvien.mp4) ============ */
-.hospital-video-card {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 32px;
-  background: var(--card-bg);
-  border: 1.5px solid var(--border);
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  align-items: center;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-top: 18px;
+/* ============ Phóng Sự Bệnh Viện (VTV Thời Sự benhvien.mp4) - Canh Giữa Spotlight ============ */
+.hospital-video-section {
+  text-align: center;
+  margin-bottom: 48px;
 }
 
-.hospital-video-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(220, 38, 38, 0.35);
+.hospital-video-stage {
+  max-width: 580px;
+  margin: 24px auto 0;
+  position: relative;
 }
 
 .hospital-video-frame {
   width: 100%;
-  max-width: 360px;
   aspect-ratio: 1 / 1;
   background: #000;
-  border-radius: 20px;
+  border-radius: 28px;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: 
+    0 24px 60px -12px rgba(220, 38, 38, 0.28),
+    0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid var(--border);
   position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.hospital-video-frame:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 
+    0 32px 75px -15px rgba(220, 38, 38, 0.38),
+    0 0 40px rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.45);
 }
 
 .hospital-video-frame video {
@@ -1678,74 +1680,24 @@ footer {
   display: block;
 }
 
-.hospital-video-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.hospital-tag {
+.hospital-video-caption {
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-muted);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(220, 38, 38, 0.12);
-  color: var(--danger);
-  font-size: 12px;
-  font-weight: 800;
-  padding: 6px 14px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  width: fit-content;
 }
 
-.hospital-video-info h4 {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-}
-
-.hospital-video-info p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.hospital-highlights {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.hospital-highlights li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13.5px;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.hospital-highlights li svg {
-  flex-shrink: 0;
-  color: var(--danger);
-  margin-top: 2px;
-}
-
-@media (max-width: 960px) {
-  .hospital-video-card {
-    grid-template-columns: 1fr;
-    padding: 20px;
-    gap: 20px;
+@media (max-width: 680px) {
+  .hospital-video-stage {
+    max-width: 100%;
   }
   .hospital-video-frame {
-    max-width: 100%;
-    aspect-ratio: 16 / 10;
+    border-radius: 20px;
   }
 }
+
 
 
