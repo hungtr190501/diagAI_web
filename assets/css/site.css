@@ -876,8 +876,8 @@ footer {
   background: #FFFFFF;
   border: 1.5px solid var(--border);
   box-shadow: 
-    0 18px 42px -10px rgba(11, 92, 52, 0.14),
-    0 4px 14px rgba(0, 0, 0, 0.05);
+    0 16px 38px -10px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   text-decoration: none;
   cursor: pointer;
@@ -893,9 +893,14 @@ footer {
 .press-feature:hover {
   transform: perspective(1600px) rotateX(2.5deg) rotateY(-1.2deg) translateY(-8px) scale(1.012);
   box-shadow: 
-    0 34px 75px -14px rgba(217, 119, 6, 0.35),
-    0 16px 32px -8px rgba(0, 0, 0, 0.18);
-  border-color: rgba(217, 119, 6, 0.45);
+    0 30px 65px -14px rgba(0, 0, 0, 0.22),
+    0 12px 28px -6px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .press-feature:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 30px 70px -14px rgba(0, 0, 0, 0.85);
 }
 
 .press-paper-wrapper {
@@ -990,51 +995,75 @@ footer {
   transform: translate(3px, -3px);
 }
 
-/* Book Corner Curl (góc cong lật trang sách/báo) */
+/* Book Corner Curl (góc lật trang báo tinh tế khi hover) */
 .book-corner-curl {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 150px;
-  height: 150px;
+  width: 64px;
+  height: 64px;
   pointer-events: none;
   z-index: 6;
-  overflow: visible;
+  opacity: 0;
+  transform: scale(0.4);
+  transform-origin: 100% 100%;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Shadow underneath curled corner */
+.press-feature:hover .book-corner-curl {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 1. Phần che góc ảnh gốc bằng nền mặt bàn */
+.curl-cutout {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  border-bottom-right-radius: 28px;
+  background: var(--bg-body, #F8FAFC);
+  z-index: 1;
+}
+
+[data-theme="dark"] .curl-cutout {
+  background: var(--bg-body, #0B132B);
+}
+
+/* 2. Đổ bóng trên mặt bàn ngay dưới góc trang giấy lật lên */
 .curl-under-shadow {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, transparent 48%, rgba(0, 0, 0, 0.48) 52%, rgba(0, 0, 0, 0.25) 75%, transparent 100%);
-  filter: blur(6px);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  inset: 0;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
   border-bottom-right-radius: 28px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.08) 50%, transparent 100%);
+  z-index: 2;
 }
 
-/* Curled fold flap */
+/* 3. Nếp trang sách/báo lật lên (tam giác gập vào trong) */
 .curl-fold {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 70px;
-  height: 70px;
+  inset: 0;
+  clip-path: polygon(100% 0, 0 100%, 0 0);
   background: linear-gradient(
     135deg,
     #ffffff 0%,
-    #f8fafc 40%,
-    #e2e8f0 55%,
-    #cbd5e1 75%,
-    #94a3b8 100%
+    #f8fafc 35%,
+    #e2e8f0 70%,
+    #cbd5e1 100%
   );
-  clip-path: polygon(100% 0, 0 100%, 100% 100%);
-  box-shadow: -8px -8px 20px rgba(0, 0, 0, 0.35);
-  border-bottom-right-radius: 28px;
-  transform-origin: 0 100%;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(-4px -4px 8px rgba(0, 0, 0, 0.28));
+  z-index: 3;
+}
+
+[data-theme="dark"] .curl-fold {
+  background: linear-gradient(
+    135deg,
+    #e2e8f0 0%,
+    #cbd5e1 35%,
+    #94a3b8 70%,
+    #64748b 100%
+  );
+  filter: drop-shadow(-4px -4px 10px rgba(0, 0, 0, 0.6));
 }
 
 /* Hint pill at corner */
@@ -1062,28 +1091,6 @@ footer {
   background: #0f1f16;
   color: #F8FAFC;
   border-color: rgba(52, 211, 153, 0.3);
-}
-
-.press-feature:hover .curl-under-shadow {
-  width: 135px;
-  height: 135px;
-  filter: blur(9px);
-  background: linear-gradient(135deg, transparent 48%, rgba(0, 0, 0, 0.55) 52%, rgba(0, 0, 0, 0.3) 80%, transparent 100%);
-}
-
-.press-feature:hover .curl-fold {
-  width: 135px;
-  height: 135px;
-  transform: rotate(-6deg) translate(-6px, -6px);
-  box-shadow: -18px -18px 36px rgba(0, 0, 0, 0.48);
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #ffffff 35%,
-    #eef2f6 50%,
-    #cbd5e1 75%,
-    #64748b 100%
-  );
 }
 
 .press-feature:hover .curl-hint {
