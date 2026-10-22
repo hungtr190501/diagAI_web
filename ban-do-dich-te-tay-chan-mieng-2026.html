@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bản Đồ Dịch Tễ Tay Chân Miệng Việt Nam 2026 · DiagAI</title>
+  <meta name="description"
+    content="Giám sát trực quan diễn biến dịch Tay chân miệng Việt Nam 2026: Số ca mắc, phân bố theo tỉnh thành, tâm dịch phía Nam, cảnh báo chủng EV71 và phân tích diễn tiến lũy kế." />
+  <link rel="icon" type="image/png" href="assets/icons/main.png" />
+  <link rel="apple-touch-icon" href="assets/icons/main.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <style>
+    /* ============ Scoped Styles for ban-do-dich-te ============ */
+    :root {
+      --s1: #86efac;
+      --s2: #34d399;
+      --s3: #fbbf24;
+      --s4: #fb923c;
+      --s5: #ef4444;
+      --sec-border: var(--border, rgba(11, 92, 52, 0.15));
+      --box-bg: var(--card-bg, #ffffff);
+      --box-soft: rgba(11, 92, 52, 0.04);
+    }
+
+    [data-theme="dark"] {
+      --box-soft: rgba(52, 211, 153, 0.06);
+    }
+
+    /* Page Hero */
+    .map-hero {
+      padding: 48px 0 32px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1.5px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pulse-indicator {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      animation: pulseAlert 2s infinite;
+    }
+
+    @keyframes pulseAlert {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 9px rgba(239, 68, 68, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .map-hero h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .map-hero h1 span.gradient-text {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .map-hero .lede {
+      font-size: 16.5px;
+      color: var(--text-muted);
+      max-width: 820px;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .period-meta {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--box-soft);
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .period-meta b {
+      color: var(--primary);
+    }
+
+    /* Subnav quick jump tabs */
+    .map-subnav-wrapper {
+      position: sticky;
+      top: var(--header-h, 72px);
+      z-index: 999;
+      background: rgba(241, 245, 249, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      margin-bottom: 24px;
+      transition: background-color 0.3s ease;
+    }
+
+    [data-theme="dark"] .map-subnav-wrapper {
+      background: rgba(7, 15, 10, 0.94);
+    }
+
+    .map-subnav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0;
+    }
+
+    .map-subnav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .map-subnav a {
+      flex-shrink: 0;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      transition: all 0.2s ease;
+    }
+
+    .map-subnav a:hover,
+    .map-subnav a.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(11, 92, 52, 0.25);
+    }
+
+    /* KPI Cards */
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .kpi {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 22px 20px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .kpi:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .kpi .num {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi .num.red { color: var(--danger); }
+    .kpi .num.grn { color: var(--primary-accent); }
+
+    .kpi .lab {
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .kpi .sub {
+      margin-top: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Section layout */
+    .map-section {
+      padding: 38px 0 44px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .sec-idx {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-accent);
+      background: var(--primary-light);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .sec-title {
+      font-size: clamp(22px, 2.6vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+
+    .sec-desc {
+      color: var(--text-muted);
+      max-width: 760px;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Map Layout */
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 0.55fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    #map {
+      height: 600px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .leaflet-container {
+      font-family: var(--font);
+    }
+
+    .legend-box {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      font-size: 12.5px;
+      line-height: 1.7;
+    }
+
+    .legend-box .lt {
+      font-weight: 800;
+      margin-bottom: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .legend-box i {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      margin-right: 8px;
+      vertical-align: -1px;
+    }
+
+    /* Detail Card */
+    .detail {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail .dh {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .detail .dname {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 8px 0 12px;
+      letter-spacing: -0.015em;
+    }
+
+    .detail .dbig {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--danger);
+    }
+
+    .detail .dbig small {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-left: 8px;
+      font-family: var(--font);
+    }
+
+    .detail-rows {
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .detail .drow {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .detail .drow span {
+      color: var(--text-muted);
+    }
+
+    .detail .drow b {
+      font-family: 'Roboto Mono', monospace;
+      color: var(--text);
+    }
+
+    .detail .dnote {
+      margin-top: 16px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      background: var(--box-soft);
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .detail .tag {
+      display: inline-block;
+      margin-top: 16px;
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    /* Ranked Bars */
+    .bars {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 90px;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .bar-row .bname {
+      font-size: 14px;
+      font-weight: 700;
+      text-align: right;
+      color: var(--text);
+    }
+
+    .bar-track {
+      background: var(--box-soft);
+      border-radius: 8px;
+      height: 32px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      padding: 2px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .bar-row .bval {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+
+    /* Region Split */
+    .split {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .rc {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .rc .rp {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .rc .rn {
+      margin-top: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .rc .rd {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .rc .rbar {
+      height: 6px;
+      border-radius: 3px;
+      margin-top: 16px;
+    }
+
+    /* Trend Chart */
+    .chart-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chart-box {
+      position: relative;
+      width: 100%;
+      height: 340px;
+    }
+
+    /* Facts Grid */
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .fact {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .fact h3 {
+      font-size: 16.5px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+    }
+
+    .fact h3 .ic {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary-accent);
+      flex: none;
+    }
+
+    .fact.warn h3 .ic {
+      background: var(--danger);
+    }
+
+    .fact p {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Table */
+    .table-responsive {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      background: var(--box-soft);
+    }
+
+    td.n, th.n {
+      text-align: right;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+    }
+
+    tbody tr:hover {
+      background: var(--box-soft);
+    }
+
+    .dot-cell {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: -1px;
+    }
+
+    /* Sources / Notes */
+    .disclaimer {
+      margin-top: 18px;
+      padding: 18px 22px;
+      border-left: 4px solid var(--s3);
+      background: var(--box-soft);
+      font-size: 14px;
+      color: var(--text);
+      border-radius: 0 10px 10px 0;
+      line-height: 1.6;
+      border: 1px solid var(--border);
+      border-left-width: 4px;
+      border-left-color: var(--warning);
+    }
+
+    .srcs {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 2.1;
+      margin-top: 22px;
+    }
+
+    .srcs a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px dashed var(--primary);
+    }
+
+    .srcs a:hover {
+      border-bottom-style: solid;
+    }
+
+    @media (max-width: 960px) {
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+      .map-grid { grid-template-columns: 1fr; }
+      #map { height: 440px; }
+      .split { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 100px 1fr 68px; gap: 10px; }
+      .bar-row .bname { font-size: 13px; }
+    }
+
+    @media (max-width: 540px) {
+      .kpis { grid-template-columns: 1fr; }
+      .map-hero h1 { font-size: 25px; }
+    }
+  </style>
+</head>
+
+<body data-page="map">
+
+  <!-- Header dùng chung đồng bộ toàn hệ thống DiagAI -->
+  <div id="site-header"></div>
+
+  <!-- Hero Section -->
+  <header class="map-hero site-wrapper reveal">
+    <div class="hero-badge">
+      <span class="pulse-indicator"></span>
+      GIÁM SÁT DỊCH TỄ TAY CHÂN MIỆNG · VIỆT NAM 2026
+    </div>
+    <h1>Bản Đồ Dịch Tễ Bệnh Tay Chân Miệng <br /><span class="gradient-text">Tại Việt Nam Năm 2026</span></h1>
+    <p class="lede">Hệ thống tổng hợp trực quan số ca mắc, phân bố vùng và địa phương trên nền bản đồ số thực, cùng cảnh báo dịch tễ về sự quay lại của biến chủng độc lực cao EV71.</p>
+    <div class="period-meta">
+      <svg class="svg-icon" viewBox="0 0 24 24" style="color:var(--primary);width:16px;height:16px;"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+      Kỳ báo cáo: <b>14/12/2025 – 18/6/2026</b> · Cập nhật từ báo cáo định kỳ của Bộ Y tế
+    </div>
+
+    <!-- Quick KPIs -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="num red">~55.000</div>
+        <div class="lab">Ca mắc cả nước</div>
+        <div class="sub">↑ gấp ~2 lần cùng kỳ 2025</div>
+      </div>
+      <div class="kpi">
+        <div class="num red">10</div>
+        <div class="lab">Ca tử vong</div>
+        <div class="sub">Cùng kỳ 2025: 0 ca</div>
+      </div>
+      <div class="kpi">
+        <div class="num grn">71,9%</div>
+        <div class="lab">Ca tại khu vực phía Nam</div>
+        <div class="sub">Tâm dịch lớn nhất cả nước</div>
+      </div>
+      <div class="kpi">
+        <div class="num grn">56%</div>
+        <div class="lab">Mẫu (+) là chủng EV71</div>
+        <div class="sub">Gây biến chứng thần kinh nặng</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subnav Quick Jump -->
+  <div class="map-subnav-wrapper">
+    <div class="site-wrapper">
+      <nav class="map-subnav" id="map-subnav">
+        <a href="#sec-map" class="active">01 · Bản Đồ Trực Quan</a>
+        <a href="#sec-rank">02 · Xếp Hạng Trọng Điểm</a>
+        <a href="#sec-region">03 · Phân Bố Theo Vùng</a>
+        <a href="#sec-trend">04 · Diễn Tiến Lũy Kế</a>
+        <a href="#sec-facts">05 · Cảnh Báo Dịch Tễ</a>
+        <a href="#sec-data">06 · Bảng Số Liệu Chi Tiết</a>
+        <a href="#sec-source">07 · Nguồn Tin Y Tế</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="site-wrapper">
+    <!-- 01. MAP -->
+    <section id="sec-map" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">01</span>
+        <h2 class="sec-title">Bản đồ phân bố ca mắc thực tế</h2>
+      </div>
+      <p class="sec-desc">Bản đồ số OpenStreetMap thời gian thực. Kích thước và màu sắc điểm tròn tương ứng với số ca lũy kế trong năm 2026. Nhấp hoặc di chuột vào điểm để xem thông tin chi tiết địa phương ở bảng bên phải.</p>
+      
+      <div class="map-grid">
+        <div id="map"></div>
+        <div class="detail" id="detail">
+          <div class="dh">Địa phương được chọn</div>
+          <div class="dname" id="d-name">TP. Hồ Chí Minh</div>
+          <div class="dbig"><span id="d-num">13.730</span><small>ca mắc</small></div>
+          <div class="detail-rows">
+            <div class="drow"><span>Vùng dịch tễ</span><b id="d-region">Phía Nam</b></div>
+            <div class="drow"><span>So với cùng kỳ 2025</span><b id="d-trend">↑ ~240%</b></div>
+            <div class="drow"><span>Số ca tử vong</span><b id="d-death">4</b></div>
+          </div>
+          <p class="dnote" id="d-note">Tâm dịch lớn nhất cả nước. 332 ổ dịch từ đầu năm (181 ổ ở trường mầm non). Bệnh viện nhi tuyến cuối quá tải, nhiều ca nặng độ 3–4.</p>
+          <span class="tag" id="d-tag">Mức độ: rất cao</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. RANK -->
+    <section id="sec-rank" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">02</span>
+        <h2 class="sec-title">Xếp hạng địa phương trọng điểm</h2>
+      </div>
+      <p class="sec-desc">Bảy địa phương có số ca mắc cao nhất tính từ đầu năm 2026 theo công bố của Bộ Y tế. TP.HCM và các tỉnh lân cận chiếm tỷ trọng áp đảo.</p>
+      <div class="bars" id="bars"></div>
+    </section>
+
+    <!-- 03. REGION -->
+    <section id="sec-region" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">03</span>
+        <h2 class="sec-title">Phân bố ca mắc theo vùng</h2>
+      </div>
+      <p class="sec-desc">Miền Nam tiếp tục là điểm nóng với gần 3/4 tổng số ca mắc của cả nước trong các tháng đầu năm 2026.</p>
+      <div class="split">
+        <div class="rc">
+          <div class="rp" style="color:var(--s5)">71,9%</div>
+          <div class="rn">Phía Nam</div>
+          <div class="rd">18.031 ca (quý I) · Tâm dịch cả nước</div>
+          <div class="rbar" style="background:var(--s5);width:100%"></div>
+        </div>
+        <div class="rc">
+          <div class="rp" style="color:var(--s3)">~20%</div>
+          <div class="rn">Miền Bắc</div>
+          <div class="rd">Đứng thứ hai về số ca mắc</div>
+          <div class="rbar" style="background:var(--s3);width:28%"></div>
+        </div>
+        <div class="rc">
+          <div class="rp" style="color:var(--s2)">~8%</div>
+          <div class="rn">Miền Trung &amp; Tây Nguyên</div>
+          <div class="rd">Đà Nẵng &amp; duyên hải tăng nhanh từ tuần 11</div>
+          <div class="rbar" style="background:var(--s2);width:12%"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. TREND -->
+    <section id="sec-trend" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">04</span>
+        <h2 class="sec-title">Diễn tiến lũy kế theo mốc báo cáo</h2>
+      </div>
+      <p class="sec-desc">Số ca mắc cả nước cộng dồn từ giữa tháng 12/2025 qua các báo cáo công tác y tế định kỳ của Bộ Y tế.</p>
+      <div class="chart-wrap">
+        <div class="chart-box">
+          <canvas id="trendChart" role="img" aria-label="Biểu đồ đường số ca tay chân miệng lũy kế cả nước 2026: cuối tháng 3 khoảng 25.094, giữa tháng 4 khoảng 34.432, giữa tháng 6 khoảng 55.000"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. FACTS -->
+    <section id="sec-facts" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">05</span>
+        <h2 class="sec-title">Điểm cảnh báo dịch tễ trọng tâm</h2>
+      </div>
+      <p class="sec-desc">Các khuyến cáo chuyên môn và phân tích từ Cục Y tế Dự phòng cùng các bệnh viện Nhi đồng tuyến cuối.</p>
+      <div class="facts">
+        <div class="fact warn">
+          <h3><span class="ic"></span>Biến chủng EV71 quay trở lại</h3>
+          <p>Tại phía Nam, chủng Enterovirus 71 (EV71) chiếm đến 56% mẫu xét nghiệm dương tính — chủng này đặc biệt liên quan đến biến chứng thần kinh nguy hiểm, sốc tim, suy hô hấp diễn tiến nhanh và là nguyên nhân chính của các ca tử vong.</p>
+        </div>
+        <div class="fact">
+          <h3><span class="ic"></span>Trẻ nhỏ dưới 5 tuổi là đối tượng nguy cơ cao</h3>
+          <p>99,3% số ca mắc ghi nhận ở trẻ dưới 10 tuổi, trong đó 92,7% thuộc nhóm từ 1–5 tuổi. Bệnh lây lan mạnh mẽ trong môi trường nhà trẻ, trường mẫu giáo thông qua đường tiêu hóa và tiếp xúc dịch tiết.</p>
+        </div>
+        <div class="fact warn">
+          <h3><span class="ic"></span>Ổ dịch trường học gia tăng liên tục</h3>
+          <p>Riêng tại TP.HCM đã ghi nhận 332 ổ dịch từ đầu năm (181 ổ tại các trường mầm non). Tại Đà Nẵng, chỉ trong tuần 15 đã phát hiện thêm 9 ổ dịch nhỏ tại các cơ sở giáo dục.</p>
+        </div>
+        <div class="fact">
+          <h3><span class="ic"></span>Dự báo số ca tiếp tục tăng trong cao điểm</h3>
+          <p>Bộ Y tế dự báo đỉnh dịch Tay chân miệng thường rơi vào tháng 5 đến tháng 11 hằng năm. Cơ quan y tế đã ban hành công văn khẩn yêu cầu các địa phương siết chặt giám sát và điều trị kịp thời.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. DATA TABLE -->
+    <section id="sec-data" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">06</span>
+        <h2 class="sec-title">Bảng thống kê số liệu chi tiết</h2>
+      </div>
+      <p class="sec-desc">Dữ liệu phân tích chi tiết theo từng tỉnh, thành phố trực thuộc Trung ương trong kỳ thống kê 2026.</p>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Địa phương</th>
+              <th>Vùng dịch tễ</th>
+              <th class="n">Số ca mắc (2026)</th>
+              <th class="n">Số ca tử vong</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 07. SOURCES & DISCLAIMER -->
+    <section id="sec-source" class="map-section reveal">
+      <div class="sec-head">
+        <span class="sec-idx">07</span>
+        <h2 class="sec-title">Nguồn dữ liệu &amp; Ghi chú y tế</h2>
+      </div>
+      <div class="disclaimer">
+        Số liệu cả nước 6 tháng đầu năm: <b>~55.000 ca / 10 ca tử vong</b> (kỳ báo cáo 14/12/2025 – 18/6/2026), tổng hợp từ báo cáo công tác y tế của Bộ Y tế. Số liệu của từng tỉnh/thành là lũy kế đầu năm 2026 tại thời điểm công bố. Số liệu tại Hà Nội và Đà Nẵng là ước tính minh họa cho khu vực (nguồn chỉ công bố tỷ lệ vùng, không có số lũy kế chi tiết). Bảng điều khiển được tổng hợp nhằm mục đích tham khảo, nâng cao ý thức cộng đồng và hỗ trợ phát hiện sớm.
+      </div>
+      <p class="srcs">
+        • VnExpress — <a href="https://vnexpress.net/ca-sot-xuat-huyet-va-tay-chan-mieng-tang-gap-doi-cung-ky-5091678.html" target="_blank" rel="noopener">Ca tay chân miệng tăng gấp đôi cùng kỳ</a><br>
+        • Dân trí — <a href="https://dantri.com.vn/suc-khoe/so-ca-mac-tay-chan-mieng-tang-vot-gap-5-lan-so-voi-cung-ky-20260327093306349.htm" target="_blank" rel="noopener">Số ca tăng vọt, gấp 5 lần cùng kỳ</a><br>
+        • Báo Chính phủ — <a href="https://baochinhphu.vn/nhieu-ca-nang-benh-tay-chan-mieng-bo-y-te-yeu-cau-khan-truong-phong-benh-102260329100504503.htm" target="_blank" rel="noopener">Nhiều ca nặng, Bộ Y tế yêu cầu khẩn trương phòng bệnh</a><br>
+        • Vietnam+ / TTXVN — <a href="https://www.vietnamplus.vn/nhanh-chong-kiem-soat-tinh-hinh-dich-benh-tay-chan-mieng-o-khu-vuc-phia-nam-post1101683.vnp" target="_blank" rel="noopener">Kiểm soát dịch phía Nam (EV71)</a><br>
+        • Sở Y tế Đà Nẵng — <a href="https://soyte.danang.gov.vn/vi/web/syt/w/quyet-liet-thuc-hien-cong-tac-dieu-tra-kiem-tra-xu-ly-phong-chong-dieu-tri-benh-tay-chan-mieng-tren-dia-ban-thanh-pho-da-nang" target="_blank" rel="noopener">Diễn biến tại Đà Nẵng</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer dùng chung -->
+  <div id="site-footer"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    const cities = [
+      { name: "TP. Hồ Chí Minh", short: "TP.HCM", region: "Phía Nam", cases: 13730, deaths: 4, trend: "↑ ~240%", lat: 10.776, lng: 106.700,
+        note: "Tâm dịch lớn nhất cả nước. 332 ổ dịch từ đầu năm (181 ổ ở trường mầm non). Bệnh viện nhi tuyến cuối quá tải, nhiều ca nặng độ 3–4." },
+      { name: "Tây Ninh", short: "Tây Ninh", region: "Phía Nam", cases: 3331, deaths: 0, trend: "↑ mạnh", lat: 11.310, lng: 106.098,
+        note: "Một trong các tỉnh phía Nam có số ca tập trung cao, thuộc nhóm trọng điểm giám sát của Viện Pasteur TP.HCM." },
+      { name: "Đồng Nai", short: "Đồng Nai", region: "Phía Nam", cases: 2172, deaths: 1, trend: "↑ mạnh", lat: 10.964, lng: 106.842,
+        note: "Dịch 2025 kéo dài sang tháng 1/2026 khiến số ca lũy kế cao. Nhiều ca nặng độ 3–4 phải thở máy, lọc máu." },
+      { name: "Đồng Tháp", short: "Đồng Tháp", region: "Phía Nam", cases: 1900, deaths: 1, trend: "↑", lat: 10.454, lng: 105.633,
+        note: "Vùng ĐBSCL, số ca gia tăng cùng xu hướng chung của khu vực phía Nam." },
+      { name: "An Giang", short: "An Giang", region: "Phía Nam", cases: 1890, deaths: 1, trend: "↑", lat: 10.521, lng: 105.126,
+        note: "Ghi nhận 1 ca tử vong. Thuộc nhóm địa phương ĐBSCL có số mắc cao." },
+      { name: "TP. Cần Thơ", short: "Cần Thơ", region: "Phía Nam", cases: 1815, deaths: 1, trend: "↑", lat: 10.045, lng: 105.746,
+        note: "Trung tâm ĐBSCL, ghi nhận 1 ca tử vong, số ca ở mức cao trong khu vực." },
+      { name: "Vĩnh Long", short: "Vĩnh Long", region: "Phía Nam", cases: 1711, deaths: 0, trend: "↑", lat: 10.253, lng: 105.972,
+        note: "Thuộc nhóm 7 địa phương có số ca cao nhất cả nước theo báo cáo Bộ Y tế." },
+      { name: "Cà Mau", short: "Cà Mau", region: "Phía Nam", cases: 1472, deaths: 1, trend: "↑ 149%", lat: 9.177, lng: 105.150,
+        note: "Tăng 149% so với cùng kỳ 2025 (590 ca). 1 ca tử vong là bé trai 3 tuổi." },
+      { name: "Đà Nẵng", short: "Đà Nẵng", region: "Miền Trung", cases: 900, deaths: 0, trend: "↑ 105%/tuần", lat: 16.054, lng: 108.202,
+        note: "Số ca tăng liên tục từ tuần 11; tuần 15 ghi nhận 215 ca (+105%), 9 ổ dịch nhỏ. Số hiển thị là ước tính lũy kế minh họa." },
+      { name: "Hà Nội", short: "Hà Nội", region: "Miền Bắc", cases: 1200, deaths: 0, trend: "↑", lat: 21.028, lng: 105.834,
+        note: "Đại diện khu vực miền Bắc — vùng có số ca đứng thứ hai cả nước. Số hiển thị là ước tính minh họa cho khu vực." }
+    ];
+
+    function colorFor(c) {
+      if (c >= 10000) return '#ef4444';
+      if (c >= 3000) return '#fb923c';
+      if (c >= 1800) return '#fbbf24';
+      if (c >= 1000) return '#34d399';
+      return '#86efac';
+    }
+
+    function levelFor(c) {
+      if (c >= 10000) return "Rất cao (Nguy cấp)";
+      if (c >= 3000) return "Cao";
+      if (c >= 1800) return "Khá cao";
+      if (c >= 1000) return "Trung bình";
+      return "Thấp";
+    }
+
+    function radiusFor(c) {
+      return Math.max(10, Math.min(38, Math.sqrt(c) / 3.3));
+    }
+
+    function fmt(n) {
+      return n.toLocaleString('vi-VN');
+    }
+
+    // ---- Leaflet Map Initialization ----
+    var map = L.map('map', { scrollWheelZoom: false }).setView([15.9, 107.5], 5.4);
+
+    // Sử dụng tile OpenStreetMap France: Tốc độ cao, hỗ trợ CORS, không bị lỗi 403 Forbidden
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+      maxZoom: 19
+    }).addTo(map);
+
+    cities.forEach(function (c) {
+      var marker = L.circleMarker([c.lat, c.lng], {
+        radius: radiusFor(c.cases),
+        fillColor: colorFor(c.cases),
+        color: '#ffffff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.85
+      }).addTo(map);
+
+      marker.bindTooltip('<b>' + c.short + '</b><br>' + fmt(c.cases) + ' ca mắc', { direction: 'top' });
+      marker.on('click', function () {
+        showDetail(c);
+        map.setView([c.lat, c.lng], 7, { animate: true });
+      });
+      marker.on('mouseover', function () {
+        showDetail(c);
+      });
+    });
+
+    // Legend
+    var legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function () {
+      var d = L.DomUtil.create('div', 'legend-box');
+      d.innerHTML = '<div class="lt">Mức độ ca mắc</div>' +
+        '<div><i style="background:#ef4444"></i>≥ 10.000 ca</div>' +
+        '<div><i style="background:#fb923c"></i>3.000 – 9.999</div>' +
+        '<div><i style="background:#fbbf24"></i>1.800 – 2.999</div>' +
+        '<div><i style="background:#34d399"></i>1.000 – 1.799</div>' +
+        '<div><i style="background:#86efac"></i>&lt; 1.000</div>';
+      return d;
+    };
+    legend.addTo(map);
+
+    function showDetail(c) {
+      document.getElementById('d-name').textContent = c.name;
+      document.getElementById('d-num').textContent = fmt(c.cases);
+      document.getElementById('d-region').textContent = c.region;
+      document.getElementById('d-trend').textContent = c.trend;
+      document.getElementById('d-death').textContent = c.deaths;
+      document.getElementById('d-note').textContent = c.note;
+      document.getElementById('d-tag').textContent = "Mức độ: " + levelFor(c.cases);
+    }
+
+    // ---- Ranked Bars ----
+    var ranked = cities.filter(function (c) { return c.region === "Phía Nam"; }).sort(function (a, b) { return b.cases - a.cases; }).slice(0, 7);
+    var maxC = ranked[0].cases;
+    var barsEl = document.getElementById('bars');
+    ranked.forEach(function (c) {
+      var row = document.createElement('div');
+      row.className = 'bar-row';
+      row.innerHTML = '<div class="bname">' + c.short + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:0%;background:' + colorFor(c.cases) + '"></div></div>' +
+        '<div class="bval">' + fmt(c.cases) + '</div>';
+      barsEl.appendChild(row);
+      setTimeout(function () {
+        row.querySelector('.bar-fill').style.width = (c.cases / maxC * 100) + '%';
+      }, 150);
+    });
+
+    // ---- Data Table ----
+    var tb = document.getElementById('tbody');
+    [].concat(cities).sort(function (a, b) { return b.cases - a.cases; }).forEach(function (c) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><span class="dot-cell" style="background:' + colorFor(c.cases) + '"></span><b>' + c.name + '</b></td>' +
+        '<td>' + c.region + '</td><td class="n">' + fmt(c.cases) + '</td><td class="n">' + c.deaths + '</td>';
+      tb.appendChild(tr);
+    });
+
+    // ---- Trend Chart ----
+    var trendCtx = document.getElementById('trendChart');
+    if (trendCtx) {
+      new Chart(trendCtx, {
+        type: 'line',
+        data: {
+          labels: ['Cuối T3/2026', 'Giữa T4/2026', 'Giữa T6/2026'],
+          datasets: [{
+            label: 'Ca mắc lũy kế cả nước',
+            data: [25094, 34432, 55000],
+            borderColor: '#0B5C34',
+            backgroundColor: 'rgba(11, 92, 52, 0.12)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.35,
+            pointRadius: 6,
+            pointHoverRadius: 8,
+            pointBackgroundColor: '#10B981',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function (x) { return fmt(x.parsed.y) + ' ca mắc lũy kế'; }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(148, 163, 184, 0.15)' },
+              ticks: {
+                callback: function (v) { return fmt(v); },
+                font: { family: 'Roboto Mono', size: 12 }
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { family: 'Roboto Mono', size: 12 } }
+            }
+          }
+        }
+      });
+    }
+
+    // Subnav scroll spy
+    var subnavLinks = Array.from(document.querySelectorAll('#map-subnav a'));
+    var sectionTargets = subnavLinks.map(function (link) {
+      return document.querySelector(link.getAttribute('href'));
+    });
+
+    function updateSubnavActive() {
+      var scrollY = window.pageYOffset;
+      var activeIndex = 0;
+      sectionTargets.forEach(function (sec, idx) {
+        if (sec && (sec.offsetTop - 160) <= scrollY) {
+          activeIndex = idx;
+        }
+      });
+      subnavLinks.forEach(function (link, idx) {
+        if (idx === activeIndex) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+    }
+
+    window.addEventListener('scroll', updateSubnavActive, { passive: true });
+    updateSubnavActive();
+  </script>
+</body>
+
+</html>

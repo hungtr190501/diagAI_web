@@ -17,6 +17,7 @@
     '  <ul class="nav-links">' +
     '    <li><a href="./" data-nav="home">Trang Chủ</a></li>' +
     '    <li><a href="ung-dung.html" data-nav="app">Tính Năng App</a></li>' +
+    '    <li><a href="ban-do-dich-te.html" data-nav="map">Bản Đồ Dịch Tễ</a></li>' +
     '    <li><a href="./#video-warnings" data-nav="danger">Dấu Hiệu Nguy Hiểm</a></li>' +
     '    <li><a href="./#research" data-nav="research">Nghiên Cứu &amp; Báo Chí</a></li>' +
     '  </ul>' +
@@ -50,6 +51,7 @@
     '  <div>' +
     '    <a href="./" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Trang Chủ</a>' +
     '    <a href="ung-dung.html" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Tính Năng App</a>' +
+    '    <a href="ban-do-dich-te.html" style="color:var(--text-muted);margin-right:12px;text-decoration:none;">Bản Đồ Dịch Tễ</a>' +
     '    <a href="download.html" style="color:var(--text-muted);text-decoration:none;">Tải App</a>' +
     '  </div>' +
     '</footer>';

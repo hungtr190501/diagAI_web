@@ -710,6 +710,111 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Dich Te Section on Homepage */
+    .dich-te-preview-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .dich-te-preview-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-accent);
+    }
+
+    .dich-te-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .dt-stat-box {
+      background: rgba(11, 92, 52, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    [data-theme="dark"] .dt-stat-box {
+      background: rgba(52, 211, 153, 0.06);
+    }
+
+    .dt-stat-box:hover {
+      transform: translateY(-2px);
+    }
+
+    .dt-num {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .dt-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .dt-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .dich-te-banner-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .dt-action-info h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .dt-action-info p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .dich-te-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .dich-te-banner-action {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .dich-te-banner-action .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .dich-te-stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -857,6 +962,51 @@
               <h4>5. Thở Nhanh, Thở Bất Thường</h4>
               <p>Bé thở nhanh, thở rít hoặc khó thở - đây là dấu hiệu nặng cần đưa bé đi khám ngay.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dịch Tễ Section -->
+      <section id="dich-te" class="reveal">
+        <div class="section-header">
+          <span class="section-tag" style="background:rgba(239,68,68,0.12);color:var(--danger);border-color:rgba(239,68,68,0.25);">GIÁM SÁT DỊCH TỄ 2026</span>
+          <h2 class="section-title">Bản Đồ Dịch Tễ Bệnh Tay Chân Miệng Toàn Quốc</h2>
+          <p class="section-desc">Theo dõi trực quan thời gian thực số ca mắc, phân bố các tỉnh thành tâm dịch phía Nam và các cảnh báo khẩn về biến chủng độc lực cao EV71 theo dữ liệu Bộ Y tế.</p>
+        </div>
+
+        <div class="dich-te-preview-card">
+          <div class="dich-te-stats-grid">
+            <div class="dt-stat-box">
+              <span class="dt-num" style="color:var(--danger);">~55.000</span>
+              <span class="dt-label">Ca Mắc Cả Nước</span>
+              <span class="dt-sub">↑ gấp ~2 lần cùng kỳ 2025</span>
+            </div>
+            <div class="dt-stat-box">
+              <span class="dt-num" style="color:var(--danger);">10</span>
+              <span class="dt-label">Ca Tử Vong</span>
+              <span class="dt-sub">Cùng kỳ 2025: 0 ca</span>
+            </div>
+            <div class="dt-stat-box">
+              <span class="dt-num" style="color:var(--primary-accent);">71,9%</span>
+              <span class="dt-label">Tại Phía Nam</span>
+              <span class="dt-sub">Tâm dịch lớn nhất cả nước</span>
+            </div>
+            <div class="dt-stat-box">
+              <span class="dt-num" style="color:var(--primary-accent);">56%</span>
+              <span class="dt-label">Mẫu (+) Chủng EV71</span>
+              <span class="dt-sub">Gây biến chứng nặng rất nhanh</span>
+            </div>
+          </div>
+
+          <div class="dich-te-banner-action">
+            <div class="dt-action-info">
+              <h4>Bản đồ số OpenStreetMap đa điểm &amp; Phân tích dịch tễ chuyên sâu</h4>
+              <p>Khám phá bản đồ trực quan 10 địa phương trọng điểm (TP.HCM, Tây Ninh, Đồng Nai, Cần Thơ...), biểu đồ diễn tiến lũy kế và bảng thống kê chi tiết toàn quốc.</p>
+            </div>
+            <a href="ban-do-dich-te.html" class="btn btn-primary" style="white-space:nowrap;padding:12px 22px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="margin-right:8px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Xem Bản Đồ Dịch Tễ Chi Tiết
+            </a>
           </div>
         </div>
       </section>
